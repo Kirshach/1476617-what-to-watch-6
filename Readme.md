@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть» [![Build status][travis-image]][travis-url]
 
-* Студент: [Дмитрий Киршанов](https://up.htmlacademy.ru/react/6/user/1476617).
-* Наставник: `Неизвестно`.
+- Студент: [Дмитрий Киршанов](https://up.htmlacademy.ru/react/6/user/1476617).
+- Наставник: [Даниил Царёв](https://htmlacademy.ru/profile/id945835).
 
 ---
 
