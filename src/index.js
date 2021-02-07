@@ -9,4 +9,7 @@ const movie = {
   releaseYear: 2014,
 };
 
-ReactDOM.render(<App {...movie} />, document.getElementById(`root`));
+ReactDOM.render(
+    <App {...movie} />,
+    document.getElementById(`root`)
+);

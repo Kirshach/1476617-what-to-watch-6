@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import MovieCard from "../MovieCard/MovieCard";
 
-const Home = ({title, genre, releaseYear}) => {
+const Main = ({title, genre, releaseYear}) => {
   return (
     <div>
       <section className="movie-card">
@@ -153,13 +153,13 @@ const Home = ({title, genre, releaseYear}) => {
   );
 };
 
-const homePropTypes = {
+const mainPropTypes = {
   title: PropTypes.string.isRequired,
   genre: PropTypes.string.isRequired,
   releaseYear: PropTypes.number.isRequired
 };
 
-Home.propTypes = homePropTypes;
+Main.propTypes = mainPropTypes;
 
-export {homePropTypes};
-export default Home;
+export {mainPropTypes};
+export default Main;
