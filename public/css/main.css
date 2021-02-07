@@ -1397,3 +1397,23 @@ main {
   top: 50%;
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
+
+.page-not-found {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  max-width: 800px;
+  padding: 3em 0 9em;
+  margin: 0 auto; }
+
+.page-not-found__heading {
+  font-size: 3em;
+  margin-bottom: 1em; }
+
+.page-not-found__message {
+  margin-bottom: 2.4em;
+  font-size: 1.5em; }
+
+.page-not-found__footer {
+  font-size: 1em; }
