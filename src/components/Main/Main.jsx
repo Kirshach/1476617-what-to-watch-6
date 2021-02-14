@@ -1,14 +1,18 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-import MovieCard from "../MovieCard/MovieCard";
+import MovieCardList from '../MovieCardList/MovieCardList';
+import {filmPropTypes} from '../../prop-types/film';
+import {useNavigation} from '../../hooks/useNavigation';
 
-const Main = ({title, genre, releaseYear}) => {
+const Main = ({films, film: {id, name, genre, released, posterImage}}) => {
+  const {redirect} = useNavigation();
+
   return (
     <div>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={title} />
+          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
@@ -34,22 +38,23 @@ const Main = ({title, genre, releaseYear}) => {
           <div className="movie-card__info">
             <div className="movie-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg"
-                alt={`${title} poster`}
+                src={posterImage}
+                alt={`${name} poster`}
                 width={218}
                 height={327}
               />
             </div>
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{title}</h2>
+              <h2 className="movie-card__title">{name}</h2>
               <p className="movie-card__meta">
                 <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{releaseYear}</span>
+                <span className="movie-card__year">{released}</span>
               </p>
               <div className="movie-card__buttons">
                 <button
                   className="btn btn--play movie-card__button"
                   type="button"
+                  onClick={() => redirect(`/player/${id}`)}
                 >
                   <svg viewBox="0 0 19 19" width={19} height={19}>
                     <use xlinkHref="#play-s" />
@@ -126,9 +131,11 @@ const Main = ({title, genre, releaseYear}) => {
             </li>
           </ul>
           <div className="catalog__movies-list">
-            {new Array(20).fill(null).map((_, index) => (
-              <MovieCard key={index} />
-            ))}
+
+            <MovieCardList
+              films={films}
+            />
+
           </div>
           <div className="catalog__more">
             <button className="catalog__button" type="button">
@@ -153,13 +160,11 @@ const Main = ({title, genre, releaseYear}) => {
   );
 };
 
-const mainPropTypes = {
-  title: PropTypes.string.isRequired,
-  genre: PropTypes.string.isRequired,
-  releaseYear: PropTypes.number.isRequired
+Main.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(filmPropTypes)
+  ),
+  film: PropTypes.shape(filmPropTypes)
 };
 
-Main.propTypes = mainPropTypes;
-
-export {mainPropTypes};
 export default Main;

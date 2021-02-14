@@ -1,14 +1,36 @@
 import React from 'react';
-import {useParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
+import {Redirect} from 'react-router-dom';
 
-const Player = () => {
-  // eslint-disable-next-line no-unused-vars
-  const {id} = useParams();
+import {filmPropTypes} from '../../prop-types/film';
+import {useQueryFilmById} from '../../hooks/useQueryFilmById';
+import {useNavigation} from '../../hooks/useNavigation';
+
+const Player = ({films}) => {
+  const film = useQueryFilmById(films);
+  const {goBack} = useNavigation();
+
+  if (!film) {
+    return <Redirect to="/404" />;
+  }
+
+  const {
+    name,
+    previewImage,
+    videoLink
+  } = film;
+
   return (
     <div className="player">
-      <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={videoLink} className="player__video" poster={previewImage}></video>
 
-      <button type="button" className="player__exit">Exit</button>
+      <button
+        type="button"
+        className="player__exit"
+        onClick={() => goBack()}
+      >
+        Exit
+      </button>
 
       <div className="player__controls">
         <div className="player__controls-row">
@@ -26,7 +48,7 @@ const Player = () => {
             </svg>
             <span>Play</span>
           </button>
-          <div className="player__name">Transpotting</div>
+          <div className="player__name">{name}</div>
 
           <button type="button" className="player__full-screen">
             <svg viewBox="0 0 27 27" width="27" height="27">
@@ -38,6 +60,12 @@ const Player = () => {
       </div>
     </div>
   );
+};
+
+Player.propTypes = {
+  films: PropTypes.arrayOf(
+      PropTypes.shape(filmPropTypes)
+  )
 };
 
 export default Player;

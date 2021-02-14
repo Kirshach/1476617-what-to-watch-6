@@ -1,23 +1,29 @@
 import React from "react";
+import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const MovieCard = () => {
+import {filmPropTypes} from '../../prop-types/film';
+
+const MovieCard = ({id, name, previewImage, onHover}) => {
   return (
-    <article className="small-movie-card catalog__movies-card">
+    <article onMouseOver={onHover} className="small-movie-card catalog__movies-card">
       <div className="small-movie-card__image">
         <img
-          src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-          alt="Fantastic Beasts: The Crimes of Grindelwald"
+          src={previewImage}
+          alt={name}
           width={280}
           height={175}
         />
       </div>
       <h3 className="small-movie-card__title">
-        <a className="small-movie-card__link" href="movie-page.html">
-          Fantastic Beasts: The Crimes of Grindelwald
-        </a>
+        <Link className="small-movie-card__link" to={`/films/${id}`}>
+          {name}
+        </Link>
       </h3>
     </article>
   );
 };
+
+MovieCard.propTypes = {...filmPropTypes, onHover: PropTypes.func};
 
 export default MovieCard;
