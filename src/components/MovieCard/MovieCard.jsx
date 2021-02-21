@@ -1,18 +1,60 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
+
+import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
 import {filmPropTypes} from '../../prop-types/film';
 
-const MovieCard = ({id, name, previewImage, onHover}) => {
+const TIMEOUT_BEFORE_PLAYING_PREVIEW = 500;
+
+const MovieCard = ({
+  id,
+  name,
+  previewImage,
+  videoLink
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(() => {
+    let clearingFunction;
+
+    if (isHovered) {
+      const playerTimeout = setTimeout(() => {
+        setIsPlaying(true);
+      }, TIMEOUT_BEFORE_PLAYING_PREVIEW);
+
+      clearingFunction = () => {
+        clearTimeout(playerTimeout);
+      };
+    }
+
+    return clearingFunction;
+  }, [isHovered]);
+
+  const handleMouseOver = () => {
+    setIsHovered(true);
+  };
+
+  const handleMouseOut = () => {
+    setIsHovered(false);
+    setIsPlaying(false);
+  };
+
   return (
-    <article onMouseOver={onHover} className="small-movie-card catalog__movies-card">
+    <article
+      className="small-movie-card catalog__movies-card"
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       <div className="small-movie-card__image">
-        <img
-          src={previewImage}
+        <VideoPlayer
           alt={name}
-          width={280}
           height={175}
+          isPlaying={isPlaying}
+          poster={previewImage}
+          src={videoLink}
+          width={280}
         />
       </div>
       <h3 className="small-movie-card__title">
@@ -24,6 +66,6 @@ const MovieCard = ({id, name, previewImage, onHover}) => {
   );
 };
 
-MovieCard.propTypes = {...filmPropTypes, onHover: PropTypes.func};
+MovieCard.propTypes = filmPropTypes;
 
 export default MovieCard;

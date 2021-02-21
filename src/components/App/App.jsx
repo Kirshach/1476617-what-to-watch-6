@@ -6,7 +6,7 @@ import AddReview from '../AddReview/AddReview';
 import Film from "../Film/Film";
 import Main from "../Main/Main";
 import MyList from "../MyList/MyList";
-import Player from '../Player/Player';
+import MoviePlayer from '../MoviePlayer/MoviePlayer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import SignIn from '../SignIn/SignIn';
 
@@ -38,7 +38,7 @@ const App = ({films}) => {
         </Route>
 
         <Route exact path="/player/:id">
-          <Player films={films}/>
+          <MoviePlayer films={films}/>
         </Route>
 
         <Route>

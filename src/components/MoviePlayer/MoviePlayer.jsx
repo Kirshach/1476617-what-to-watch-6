@@ -6,7 +6,7 @@ import {filmPropTypes} from '../../prop-types/film';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useNavigation} from '../../hooks/useNavigation';
 
-const Player = ({films}) => {
+const MoviePlayer = ({films}) => {
   const film = useQueryFilmById(films);
   const {goBack} = useNavigation();
 
@@ -62,10 +62,10 @@ const Player = ({films}) => {
   );
 };
 
-Player.propTypes = {
+MoviePlayer.propTypes = {
   films: PropTypes.arrayOf(
       PropTypes.shape(filmPropTypes)
   )
 };
 
-export default Player;
+export default MoviePlayer;
