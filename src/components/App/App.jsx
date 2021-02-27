@@ -1,6 +1,5 @@
 import React from "react";
 import {BrowserRouter, Switch, Route} from "react-router-dom";
-import PropTypes from 'prop-types';
 
 import AddReview from '../AddReview/AddReview';
 import Film from "../Film/Film";
@@ -10,7 +9,7 @@ import MoviePlayer from '../MoviePlayer/MoviePlayer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import SignIn from '../SignIn/SignIn';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
 
 const App = ({films}) => {
   return (
@@ -25,7 +24,7 @@ const App = ({films}) => {
           <AddReview films={films}/>
         </Route>
 
-        <Route exact path="/films/:id">
+        <Route exact path="/films/:id/:tab?">
           <Film films={films}/>
         </Route>
 
@@ -50,6 +49,8 @@ const App = ({films}) => {
   );
 };
 
-App.propTypes = {films: PropTypes.arrayOf(PropTypes.shape(filmPropTypes))};
+App.propTypes = {
+  films: filmArrayPropTypes,
+};
 
 export default App;

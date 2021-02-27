@@ -1,9 +1,8 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 import MovieCard from '../MovieCard/MovieCard';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
 
 const MovieCardList = ({films}) => {
   return (
@@ -11,7 +10,7 @@ const MovieCardList = ({films}) => {
       {films.map((film) => (
         <MovieCard
           key={film.id}
-          {...film}
+          film={film}
         />)
       )}
     </>
@@ -19,9 +18,7 @@ const MovieCardList = ({films}) => {
 };
 
 MovieCardList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  )
+  films: filmArrayPropTypes
 };
 
 export default MovieCardList;

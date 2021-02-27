@@ -1,15 +1,49 @@
 import React from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import {Link, Redirect, useParams} from 'react-router-dom';
+
+import Description from './Description';
+import Details from './Details';
+import MovieCardList from '../MovieCardList/MovieCardList';
+import Reviews from './Reviews';
+import TabBar from './TabBar';
 
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useNavigation} from '../../hooks/useNavigation';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
+
+export const Routes = {
+  overview: ``,
+  details: `details`,
+  reviews: `reviews`
+};
+
+const TABS = [
+  {label: `Overview`, route: Routes.overview},
+  {label: `Details`, route: Routes.details},
+  {label: `Reviews`, route: Routes.reviews},
+];
+
+const getFilmPageBody = (film, tab) => {
+  switch (tab) {
+    case Routes.overview:
+      return <Description film={film}/>;
+    case Routes.details:
+      return <Details film={film}/>;
+    case Routes.reviews:
+      return <Reviews/>;
+    default: throw new Error(`Invalid route provided to getFilmPageBody function`);
+  }
+};
+
+const getSimilarFilms = (films, film) => {
+  return films.filter((anotherFilm) => anotherFilm.genre === film.genre && anotherFilm !== film);
+};
 
 const Film = ({films}) => {
+  const {tab = ``} = useParams();
   const film = useQueryFilmById(films);
-  const {pathname, redirect} = useNavigation();
+  const {redirect} = useNavigation();
 
   if (!film) {
     return <Redirect to="/404" />;
@@ -18,16 +52,13 @@ const Film = ({films}) => {
   const {
     id,
     backgroundImage,
-    description,
-    director,
     genre,
     name,
     posterImage,
-    rating,
     released,
-    scoresCount,
-    starring,
   } = film;
+
+  const similarFilms = getSimilarFilms(films, film);
 
   return (
     <>
@@ -76,7 +107,7 @@ const Film = ({films}) => {
                   </svg>
                   <span>My list</span>
                 </button>
-                <Link to={`${pathname}/review`} className="btn movie-card__button">Add review</Link>
+                <Link to={`/films/${id}/review`} className="btn movie-card__button">Add review</Link>
               </div>
             </div>
           </div>
@@ -89,81 +120,29 @@ const Film = ({films}) => {
             </div>
 
             <div className="movie-card__desc">
-              <nav className="movie-nav movie-card__nav">
-                <ul className="movie-nav__list">
-                  <li className="movie-nav__item movie-nav__item--active">
-                    <a className="movie-nav__link">Overview</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a className="movie-nav__link">Details</a>
-                  </li>
-                  <li className="movie-nav__item">
-                    <a className="movie-nav__link">Reviews</a>
-                  </li>
-                </ul>
-              </nav>
 
-              <div className="movie-rating">
-                <div className="movie-rating__score">{rating}</div>
-                <p className="movie-rating__meta">
-                  <span className="movie-rating__level">Very good</span>
-                  <span className="movie-rating__count">{scoresCount} ratings</span>
-                </p>
-              </div>
+              <TabBar tabs={TABS}/>
 
-              <div className="movie-card__text">
-                <p>{description}</p>
-
-                <p className="movie-card__director"><strong>Director: {director}</strong></p>
-
-                <p className="movie-card__starring"><strong>Starring: {starring.join(`, `)} and others</strong></p>
-              </div>
+              {getFilmPageBody(film, tab)}
             </div>
           </div>
         </div>
       </section>
 
       <div className="page-content">
+
+
         <section className="catalog catalog--like-this">
-          <h2 className="catalog__title">More like this</h2>
-
-          <div className="catalog__movies-list">
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg" alt="Fantastic Beasts: The Crimes of Grindelwald" width="280" height="175" />
+          {
+            similarFilms.length > 0
+            &&
+            <>
+              <h2 className="catalog__title">More like this</h2>
+              <div className="catalog__movies-list">
+                <MovieCardList films={similarFilms} />
               </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Fantastic Beasts: The Crimes of Grindelwald</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/bohemian-rhapsody.jpg" alt="Bohemian Rhapsody" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Bohemian Rhapsody</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/macbeth.jpg" alt="Macbeth" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Macbeth</a>
-              </h3>
-            </article>
-
-            <article className="small-movie-card catalog__movies-card">
-              <div className="small-movie-card__image">
-                <img src="img/aviator.jpg" alt="Aviator" width="280" height="175" />
-              </div>
-              <h3 className="small-movie-card__title">
-                <a className="small-movie-card__link" href="movie-page.html">Aviator</a>
-              </h3>
-            </article>
-          </div>
+            </>
+          }
         </section>
 
         <footer className="page-footer">
@@ -185,9 +164,7 @@ const Film = ({films}) => {
 };
 
 Film.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  )
+  films: filmArrayPropTypes
 };
 
 export default Film;

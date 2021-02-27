@@ -1,8 +1,7 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
-import {filmPropTypes} from '../../prop-types/film';
+import {filmPropTypes, filmArrayPropTypes} from '../../prop-types/film';
 import {useNavigation} from '../../hooks/useNavigation';
 
 const Main = ({films, film: {id, name, genre, released, posterImage}}) => {
@@ -161,10 +160,8 @@ const Main = ({films, film: {id, name, genre, released, posterImage}}) => {
 };
 
 Main.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  ),
-  film: PropTypes.shape(filmPropTypes)
+  films: filmArrayPropTypes,
+  film: filmPropTypes
 };
 
 export default Main;

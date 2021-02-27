@@ -1,8 +1,7 @@
 import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useForm} from '../../hooks/useForm.js';
 
@@ -112,9 +111,7 @@ const AddReview = ({films}) => {
 };
 
 AddReview.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  )
+  films: filmArrayPropTypes
 };
 
 export default AddReview;

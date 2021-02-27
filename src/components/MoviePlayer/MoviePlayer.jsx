@@ -1,8 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Redirect} from 'react-router-dom';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useNavigation} from '../../hooks/useNavigation';
 
@@ -63,9 +62,7 @@ const MoviePlayer = ({films}) => {
 };
 
 MoviePlayer.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  )
+  films: filmArrayPropTypes
 };
 
 export default MoviePlayer;

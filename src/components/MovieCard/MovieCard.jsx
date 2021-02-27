@@ -7,12 +7,7 @@ import {filmPropTypes} from '../../prop-types/film';
 
 const TIMEOUT_BEFORE_PLAYING_PREVIEW = 500;
 
-const MovieCard = ({
-  id,
-  name,
-  previewImage,
-  videoLink
-}) => {
+const MovieCard = ({film}) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -49,23 +44,25 @@ const MovieCard = ({
     >
       <div className="small-movie-card__image">
         <VideoPlayer
-          alt={name}
+          alt={film.name}
           height={175}
           isPlaying={isPlaying}
-          poster={previewImage}
-          src={videoLink}
+          poster={film.previewImage}
+          src={film.videoLink}
           width={280}
         />
       </div>
       <h3 className="small-movie-card__title">
-        <Link className="small-movie-card__link" to={`/films/${id}`}>
-          {name}
+        <Link className="small-movie-card__link" to={`/films/${film.id}`}>
+          {film.name}
         </Link>
       </h3>
     </article>
   );
 };
 
-MovieCard.propTypes = filmPropTypes;
+MovieCard.propTypes = {
+  film: filmPropTypes
+};
 
 export default MovieCard;

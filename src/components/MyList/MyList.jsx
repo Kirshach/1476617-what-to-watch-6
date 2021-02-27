@@ -1,9 +1,8 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
-import {filmPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../../prop-types/film';
 
 const MyList = ({films}) => {
   return (
@@ -53,9 +52,7 @@ const MyList = ({films}) => {
 };
 
 MyList.propTypes = {
-  films: PropTypes.arrayOf(
-      PropTypes.shape(filmPropTypes)
-  )
+  films: filmArrayPropTypes
 };
 
 export default MyList;
