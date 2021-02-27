@@ -2,6 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
+
+import {withFilms} from '../../hocs/withFilms';
+
 import {filmArrayPropTypes} from '../../prop-types/film';
 
 const MyList = ({films}) => {
@@ -55,4 +58,6 @@ MyList.propTypes = {
   films: filmArrayPropTypes
 };
 
-export default MyList;
+const MyListWithFilms = withFilms(MyList);
+
+export default MyListWithFilms;

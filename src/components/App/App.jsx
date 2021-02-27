@@ -9,23 +9,21 @@ import MoviePlayer from '../MoviePlayer/MoviePlayer';
 import PageNotFound from '../PageNotFound/PageNotFound';
 import SignIn from '../SignIn/SignIn';
 
-import {filmArrayPropTypes} from '../../prop-types/film';
-
-const App = ({films}) => {
+export const App = () => {
   return (
     <BrowserRouter>
       <Switch>
 
         <Route exact path="/">
-          <Main films={films} film={films[0]}/>
+          <Main />
         </Route>
 
         <Route exact path="/films/:id/review">
-          <AddReview films={films}/>
+          <AddReview/>
         </Route>
 
         <Route exact path="/films/:id/:tab?">
-          <Film films={films}/>
+          <Film />
         </Route>
 
         <Route exact path="/login">
@@ -33,11 +31,11 @@ const App = ({films}) => {
         </Route>
 
         <Route exact path="/mylist">
-          <MyList films={films}/>
+          <MyList />
         </Route>
 
         <Route exact path="/player/:id">
-          <MoviePlayer films={films}/>
+          <MoviePlayer />
         </Route>
 
         <Route>
@@ -49,8 +47,6 @@ const App = ({films}) => {
   );
 };
 
-App.propTypes = {
-  films: filmArrayPropTypes,
-};
+App.propTypes = {};
 
 export default App;

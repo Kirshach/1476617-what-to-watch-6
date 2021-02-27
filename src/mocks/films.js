@@ -13,7 +13,7 @@ export const films = [{
   director: `Svetlana Baskova`,
   starring: [`Vladimir Epiphatsev`, `Sergey Pakhomov`, `Aleksander Maslaev`, `Anatoliy Osmolovskii`],
   runTime: 99,
-  genre: `Dorama`,
+  genre: `Comedies`,
   released: 1999,
   isFavorite: true
 }, {
@@ -31,7 +31,7 @@ export const films = [{
   director: `Thierry Zéno`,
   starring: [`Dominique Garny`, `Sexy ass piggie`, `Some geese`],
   runTime: 80,
-  genre: `Drama`,
+  genre: `Dramas`,
   released: 1974,
   isFavorite: true
 }, {
@@ -49,7 +49,7 @@ export const films = [{
   director: `Tom Six`,
   starring: [`Dieter Laser`, `Ashley C. Williams`, `Ashlynn Yennie`],
   runTime: 110,
-  genre: `Anime`,
+  genre: `Documentary`,
   released: 2009,
   isFavorite: true
 }, {
@@ -67,7 +67,7 @@ export const films = [{
   director: `Morten Lindberg`,
   starring: [`Coco C.P. Dalbert`, `Sammy Salomon`, `Gbatokai Dakinah`],
   runTime: 26,
-  genre: `Action Adventure`,
+  genre: `Crime`,
   released: 1992,
   isFavorite: false
 }, {
@@ -85,7 +85,7 @@ export const films = [{
   director: `Tom Six`,
   starring: [`Laurence R. Harvey`, `Ashlynn Yennie`, `Maddi Black`],
   runTime: 92,
-  genre: `Comedy`,
+  genre: `Kids & Family`,
   released: 2011,
   isFavorite: true
 }, {
@@ -103,7 +103,7 @@ export const films = [{
   director: `Stanley Kubrick`,
   starring: [`Malcolm McDowell`, `Patrick Magee`, `Michael Bates`],
   runTime: 102,
-  genre: `Children movie`,
+  genre: `Kids & Family`,
   released: 1971,
   isFavorite: false
 }, {
@@ -139,7 +139,7 @@ export const films = [{
   director: `E. Elias Merhige`,
   starring: [`Brian Salzberg`, `Donna Dempsey`, `Stephen Charles Barry`],
   runTime: 72,
-  genre: `Family Movie`,
+  genre: `Romance`,
   released: 1989,
   isFavorite: true
 }];

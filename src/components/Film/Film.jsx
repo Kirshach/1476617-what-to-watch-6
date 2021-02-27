@@ -7,6 +7,8 @@ import MovieCardList from '../MovieCardList/MovieCardList';
 import Reviews from './Reviews';
 import TabBar from './TabBar';
 
+import {withFilms} from '../../hocs/withFilms';
+
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useNavigation} from '../../hooks/useNavigation';
 
@@ -167,4 +169,6 @@ Film.propTypes = {
   films: filmArrayPropTypes
 };
 
-export default Film;
+const FilmWithFilms = withFilms(Film);
+
+export default FilmWithFilms;

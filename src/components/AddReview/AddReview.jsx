@@ -1,6 +1,7 @@
 import React, {Fragment} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 
+import {withFilms} from '../../hocs/withFilms';
 import {filmArrayPropTypes} from '../../prop-types/film';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useForm} from '../../hooks/useForm.js';
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   comment: ``
 };
 
-const AddReview = ({films}) => {
+export const AddReview = ({films}) => {
   const film = useQueryFilmById(films);
 
   const {values, handlers} = useForm(INITIAL_STATE);
@@ -114,4 +115,6 @@ AddReview.propTypes = {
   films: filmArrayPropTypes
 };
 
-export default AddReview;
+const AddReviewWithFilms = withFilms(AddReview);
+
+export default AddReviewWithFilms;
