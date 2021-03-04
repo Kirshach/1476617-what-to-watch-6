@@ -2,16 +2,30 @@ import React from "react";
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
+import {showMoreFilmsAction} from '../../store/app/actions';
+
 import GenreMenu from '../GenreMenu/GenreMenu';
 import MovieCardList from '../MovieCardList/MovieCardList';
 
+import {Genres} from '../../const';
 import {useNavigation} from '../../hooks/useNavigation';
 
 import {filmArrayPropTypes} from '../../prop-types/film';
 
-const Main = ({currentGenre, films}) => {
+const Main = ({
+  selectedGenre,
+  films,
+  filmsShowingCount,
+  showMoreFilms
+}) => {
   const {redirect} = useNavigation();
   const {id, name, genre, released, posterImage} = films[0];
+
+  const filmsByGenre = films
+    .filter((film) => selectedGenre === Genres.allGenres ? true : film.genre === selectedGenre);
+  const filmsShowing = filmsByGenre.slice(0, filmsShowingCount);
+  const handleShowMoreButtonClick = () => showMoreFilms();
+  const isShowingShowMoreButton = filmsShowingCount < filmsByGenre.length;
 
   return (
     <div>
@@ -87,13 +101,20 @@ const Main = ({currentGenre, films}) => {
           <GenreMenu />
 
           <div className="catalog__movies-list">
-            <MovieCardList films={films} genre={currentGenre}/>
+            <MovieCardList films={filmsShowing} />
           </div>
 
           <div className="catalog__more">
-            <button className="catalog__button" type="button">
-              Show more
-            </button>
+            {
+              isShowingShowMoreButton &&
+              <button
+                className="catalog__button"
+                type="button"
+                onClick={handleShowMoreButtonClick}
+              >
+                Show more
+              </button>
+            }
           </div>
         </section>
         <footer className="page-footer">
@@ -114,15 +135,22 @@ const Main = ({currentGenre, films}) => {
 };
 
 Main.propTypes = {
-  currentGenre: PropTypes.string.isRequired,
+  selectedGenre: PropTypes.string.isRequired,
   films: filmArrayPropTypes.isRequired,
+  filmsShowingCount: PropTypes.number.isRequired,
+  showMoreFilms: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  currentGenre: state.genre,
-  films: state.films,
+  selectedGenre: state.app.genre,
+  films: state.domain.films,
+  filmsShowingCount: state.app.filmsShowingCount,
 });
 
-const MainWithStore = connect(mapStateToProps)(Main);
+const mapDispatchToProps = (dispatch) => ({
+  showMoreFilms: () => dispatch(showMoreFilmsAction()),
+});
+
+const MainWithStore = connect(mapStateToProps, mapDispatchToProps)(Main);
 
 export default MainWithStore;

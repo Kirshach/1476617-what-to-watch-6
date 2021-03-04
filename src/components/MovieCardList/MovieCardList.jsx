@@ -1,17 +1,13 @@
 import React from "react";
-import PropTypes from 'prop-types';
 
-import {Genres} from '../../const';
 import MovieCard from '../MovieCard/MovieCard';
 
 import {filmArrayPropTypes} from '../../prop-types/film';
 
-const MovieCardList = ({genre, films}) => {
-  const filterFilms = (film) => genre === Genres.allGenres ? true : film.genre === genre;
+const MovieCardList = ({films}) => {
   return (
     <>
       {films
-        .filter(filterFilms)
         .map((film) => (
           <MovieCard
             key={film.id}
@@ -24,7 +20,6 @@ const MovieCardList = ({genre, films}) => {
 };
 
 MovieCardList.propTypes = {
-  genre: PropTypes.string.isRequired,
   films: filmArrayPropTypes.isRequired,
 };
 

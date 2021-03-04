@@ -1,8 +1,8 @@
-import React, {Fragment} from 'react';
+import React, {Fragment} from "react";
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmPropTypes} from "../../prop-types/film";
 
-import {getRunTime} from '../../utils/getRunTime';
+import {formatDuration} from "../../utils/formatDuration";
 
 const Details = ({film}) => {
   return (
@@ -18,10 +18,13 @@ const Details = ({film}) => {
             <span className="movie-card__details-value">
               {film.starring.map((item, index) => (
                 <Fragment key={item}>
-                  {index === film.starring.length - 1
-                    ? item
-                    : <>{item}, <br/></>
-                  }
+                  {index === film.starring.length - 1 ? (
+                    item
+                  ) : (
+                    <>
+                      {item}, <br />
+                    </>
+                  )}
                 </Fragment>
               ))}
             </span>
@@ -31,7 +34,9 @@ const Details = ({film}) => {
         <div className="movie-card__text-col">
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Run Time</strong>
-            <span className="movie-card__details-value">{getRunTime(film.runTime)}</span>
+            <span className="movie-card__details-value">
+              {formatDuration(film.runTime)}
+            </span>
           </p>
           <p className="movie-card__details-item">
             <strong className="movie-card__details-name">Genre</strong>
@@ -48,7 +53,7 @@ const Details = ({film}) => {
 };
 
 Details.propTypes = {
-  film: filmPropTypes
+  film: filmPropTypes,
 };
 
 export default Details;
