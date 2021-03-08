@@ -10,3 +10,7 @@ export const Genres = {
   sciFi: `Sci-Fi`,
   thriller: `Thrillers`,
 };
+
+export const APIRoutes = {
+  FILMS: `/films`
+};

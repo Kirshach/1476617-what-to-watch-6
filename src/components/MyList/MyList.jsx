@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
 
@@ -7,7 +8,9 @@ import {withFilms} from '../../hocs/withFilms';
 
 import {filmArrayPropTypes} from '../../prop-types/film';
 
-const MyList = ({films}) => {
+import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
+
+const MyList = ({films, isLoadingFilms}) => {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -32,7 +35,7 @@ const MyList = ({films}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          <MovieCardList films={films} />
+          {isLoadingFilms ? <LoadingPlaceholder/> : <MovieCardList films={films} />}
         </div>
 
       </section>
@@ -55,7 +58,8 @@ const MyList = ({films}) => {
 };
 
 MyList.propTypes = {
-  films: filmArrayPropTypes
+  films: filmArrayPropTypes,
+  isLoadingFilms: PropTypes.bool.isRequired,
 };
 
 const MyListWithFilms = withFilms(MyList);

@@ -6,6 +6,7 @@ import {showMoreFilmsAction} from '../../store/app/actions';
 
 import GenreMenu from '../GenreMenu/GenreMenu';
 import MovieCardList from '../MovieCardList/MovieCardList';
+import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 
 import {Genres} from '../../const';
 import {useNavigation} from '../../hooks/useNavigation';
@@ -16,10 +17,17 @@ const Main = ({
   selectedGenre,
   films,
   filmsShowingCount,
+  isLoadingFilms,
   showMoreFilms
 }) => {
   const {redirect} = useNavigation();
-  const {id, name, genre, released, posterImage} = films[0];
+
+  // TODO: Пофиксить когда появится запрос на промо
+  if (films.length === 0) {
+    return null;
+  }
+
+  const {id, name, genre, released, posterImage, backgroundImage} = films[0];
 
   const filmsByGenre = films
     .filter((film) => selectedGenre === Genres.allGenres ? true : film.genre === selectedGenre);
@@ -31,7 +39,7 @@ const Main = ({
     <div>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt={name} />
+          <img src={backgroundImage} alt={name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
         <header className="page-header movie-card__head">
@@ -101,7 +109,7 @@ const Main = ({
           <GenreMenu />
 
           <div className="catalog__movies-list">
-            <MovieCardList films={filmsShowing} />
+            {isLoadingFilms ? <LoadingPlaceholder/> : <MovieCardList films={filmsShowing} />}
           </div>
 
           <div className="catalog__more">
@@ -139,12 +147,14 @@ Main.propTypes = {
   films: filmArrayPropTypes.isRequired,
   filmsShowingCount: PropTypes.number.isRequired,
   showMoreFilms: PropTypes.func.isRequired,
+  isLoadingFilms: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   selectedGenre: state.app.genre,
   films: state.domain.films,
   filmsShowingCount: state.app.filmsShowingCount,
+  isLoadingFilms: state.app.isLoadingFilms,
 });
 
 const mapDispatchToProps = (dispatch) => ({

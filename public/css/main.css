@@ -1417,3 +1417,11 @@ main {
 
 .page-not-found__footer {
   font-size: 1em; }
+
+.loading-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
