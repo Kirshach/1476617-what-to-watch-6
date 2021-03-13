@@ -12,5 +12,15 @@ export const Genres = {
 };
 
 export const APIRoutes = {
-  FILMS: `/films`
+  FILMS: `/films`,
+  LOGIN: `/login`,
+};
+
+export const AppRoutes = {
+  ADD_REVIEW: `/films/:id/review`,
+  FILM: `/films/:id/:tab?`,
+  LOGIN: `/login`,
+  MAIN: `/`,
+  MOVIE_PLAYER: `/player/:id`,
+  MY_LIST: `/mylist`,
 };

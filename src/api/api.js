@@ -4,7 +4,7 @@ import {adaptFromApi} from '../utils/adaptFromApi';
 
 const API_TIMEOUT = 5000;
 
-export const createAPI = () => {
+const createAPI = () => {
   const api = axios.create({
     baseURL: `https://6.react.pages.academy/wtw`,
     timeout: API_TIMEOUT,
@@ -16,3 +16,7 @@ export const createAPI = () => {
   });
   return api;
 };
+
+const api = createAPI();
+
+export {api};

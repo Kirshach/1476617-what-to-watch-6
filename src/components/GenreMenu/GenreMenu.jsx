@@ -2,14 +2,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {setGenreAction, showDefaultFilmsBatchAction} from '../../store/app/actions';
+import {setGenreAction, showDefaultFilmsAmountAction} from '../../store/app/actions';
 
-export const GenreMenu = ({currentGenre, genres, setGenre, showDefaultFilmsBatch}) => {
+export const GenreMenu = ({currentGenre, genres, setGenre, showDefaultFilmsAmount}) => {
   const getClassName = (genre) => `catalog__genres-item ${currentGenre === genre ? `catalog__genres-item--active` : ``}`;
   const getHandleGenreClickHandler = (genre) => (evt) => {
     evt.preventDefault();
     setGenre(genre);
-    showDefaultFilmsBatch();
+    showDefaultFilmsAmount();
   };
 
   return (
@@ -29,7 +29,7 @@ GenreMenu.propTypes = {
   currentGenre: PropTypes.string.isRequired,
   genres: PropTypes.arrayOf(PropTypes.string).isRequired,
   setGenre: PropTypes.func,
-  showDefaultFilmsBatch: PropTypes.func.isRequired,
+  showDefaultFilmsAmount: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -39,7 +39,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   setGenre: (genre) => dispatch(setGenreAction(genre)),
-  showDefaultFilmsBatch: () => dispatch(showDefaultFilmsBatchAction()),
+  showDefaultFilmsAmount: () => dispatch(showDefaultFilmsAmountAction()),
 });
 
 const GenreMenuWithStore = connect(mapStateToProps, mapDispatchToProps)(GenreMenu);

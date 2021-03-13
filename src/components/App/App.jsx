@@ -1,5 +1,7 @@
 import React from "react";
-import {BrowserRouter, Switch, Route} from "react-router-dom";
+import {Router, Switch, Route} from "react-router-dom";
+
+import {AppRoutes} from '../../const.js';
 
 import AddReview from '../AddReview/AddReview';
 import Film from "../Film/Film";
@@ -7,34 +9,37 @@ import Main from "../Main/Main";
 import MyList from "../MyList/MyList";
 import MoviePlayer from '../MoviePlayer/MoviePlayer';
 import PageNotFound from '../PageNotFound/PageNotFound';
+import PrivateRoute from '../PrivateRoute/PrivateRoute';
 import SignIn from '../SignIn/SignIn';
+
+import {history} from '../../history';
 
 export const App = () => {
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <Switch>
 
-        <Route exact path="/">
+        <Route exact path={AppRoutes.MAIN}>
           <Main />
         </Route>
 
-        <Route exact path="/films/:id/review">
+        <PrivateRoute exact path={AppRoutes.ADD_REVIEW}>
           <AddReview/>
-        </Route>
+        </PrivateRoute>
 
-        <Route exact path="/films/:id/:tab?">
+        <Route exact path={AppRoutes.FILM}>
           <Film />
         </Route>
 
-        <Route exact path="/login">
+        <Route exact path={AppRoutes.LOGIN}>
           <SignIn/>
         </Route>
 
-        <Route exact path="/mylist">
+        <PrivateRoute exact path={AppRoutes.MY_LIST}>
           <MyList />
-        </Route>
+        </PrivateRoute>
 
-        <Route exact path="/player/:id">
+        <Route exact path={AppRoutes.MOVIE_PLAYER}>
           <MoviePlayer />
         </Route>
 
@@ -43,7 +48,7 @@ export const App = () => {
         </Route>
 
       </Switch>
-    </BrowserRouter>
+    </Router>
   );
 };
 

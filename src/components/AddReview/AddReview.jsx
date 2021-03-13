@@ -8,6 +8,7 @@ import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useForm} from '../../hooks/useForm.js';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
+import PageHeader from '../PageHeader/PageHeader';
 
 const INITIAL_RATING = 8;
 const INITIAL_STATE = {
@@ -41,15 +42,7 @@ export const AddReview = ({films, isLoadingFilms}) => {
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <header className="page-header">
-            <div className="logo">
-              <Link to="/" className="logo__link">
-                <span className="logo__letter logo__letter--1">W</span>
-                <span className="logo__letter logo__letter--2">T</span>
-                <span className="logo__letter logo__letter--3">W</span>
-              </Link>
-            </div>
-
+          <PageHeader>
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
@@ -60,13 +53,7 @@ export const AddReview = ({films, isLoadingFilms}) => {
                 </li>
               </ul>
             </nav>
-
-            <div className="user-block">
-              <div className="user-block__avatar">
-                <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
-              </div>
-            </div>
-          </header>
+          </PageHeader>
 
           <div className="movie-card__poster movie-card__poster--small">
             <img src={film.posterImage} alt={`${film.name} poster`} width="218" height="327" />
