@@ -3,8 +3,8 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
 import {redirectMiddleware} from './app/middlewares';
-// import {checkAuth} from '../store/app/thunks';
-import {fetchFilms} from '../store/domain/thunks';
+// import {checkAuthThunk} from '../store/app/thunks';
+import {fetchFilmsThunk} from '../store/domain/thunks';
 import {rootReducer as reducer} from '../store/rootReducer';
 
 import {api} from '../api/api';
@@ -25,7 +25,7 @@ const store = createStore(
  * на авторизацию не происходит дабы не писать лишней, потенциально
  * бессмысленной логики
  */
-// store.dispatch(checkAuth());
-store.dispatch(fetchFilms());
+// store.dispatch(checkAuthThunk());
+store.dispatch(fetchFilmsThunk());
 
 export {store};

@@ -20,7 +20,7 @@ const Main = ({
   selectedGenre,
   films,
   filmsShowingCount,
-  isLoadingFilms,
+  filmsHaveLoaded,
   showMoreFilms
 }) => {
   const {redirect} = useNavigation();
@@ -94,7 +94,7 @@ const Main = ({
           <GenreMenu />
 
           <div className="catalog__movies-list">
-            {isLoadingFilms ? <LoadingPlaceholder/> : <MovieCardList films={filmsShowing} />}
+            {filmsHaveLoaded ? <MovieCardList films={filmsShowing} /> : <LoadingPlaceholder/>}
           </div>
 
           <div className="catalog__more">
@@ -119,16 +119,16 @@ const Main = ({
 Main.propTypes = {
   selectedGenre: PropTypes.string.isRequired,
   films: filmArrayPropTypes.isRequired,
+  filmsHaveLoaded: PropTypes.bool.isRequired,
   filmsShowingCount: PropTypes.number.isRequired,
   showMoreFilms: PropTypes.func.isRequired,
-  isLoadingFilms: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   selectedGenre: state.app.genre,
   films: state.domain.films,
+  filmsHaveLoaded: state.app.filmsHaveLoaded,
   filmsShowingCount: state.app.filmsShowingCount,
-  isLoadingFilms: state.app.isLoadingFilms,
 });
 
 const mapDispatchToProps = (dispatch) => ({

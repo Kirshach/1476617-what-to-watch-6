@@ -1,9 +1,7 @@
 import React, {Fragment} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import {withFilms} from '../../hocs/withFilms';
-import {filmArrayPropTypes} from '../../prop-types/film';
+import {withFilms, withFilmsPropTypes} from '../../hocs/withFilms';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useForm} from '../../hooks/useForm.js';
 
@@ -16,7 +14,7 @@ const INITIAL_STATE = {
   comment: ``
 };
 
-export const AddReview = ({films, isLoadingFilms}) => {
+export const AddReview = ({films, filmsHaveLoaded}) => {
   const film = useQueryFilmById(films);
 
   const {values, handlers} = useForm(INITIAL_STATE);
@@ -27,13 +25,12 @@ export const AddReview = ({films, isLoadingFilms}) => {
     alert(JSON.stringify(values));
   };
 
-  if (!isLoadingFilms > 0 && !film) {
+  if (filmsHaveLoaded && !film.id) {
     return <Redirect to="/404" />;
   }
 
-  return isLoadingFilms
-    ? <LoadingPlaceholder/>
-    : (
+  return filmsHaveLoaded
+    ? (
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">
           <div className="movie-card__bg">
@@ -94,13 +91,12 @@ export const AddReview = ({films, isLoadingFilms}) => {
         </div>
 
       </section>
+    ) : (
+      <LoadingPlaceholder />
     );
 };
 
-AddReview.propTypes = {
-  films: filmArrayPropTypes,
-  isLoadingFilms: PropTypes.bool.isRequired,
-};
+AddReview.propTypes = withFilmsPropTypes;
 
 const AddReviewWithFilms = withFilms(AddReview);
 

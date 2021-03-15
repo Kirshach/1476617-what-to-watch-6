@@ -13,6 +13,7 @@ export const Genres = {
 
 export const APIRoutes = {
   FILMS: `/films`,
+  COMMENTS: `/comments`,
   LOGIN: `/login`,
 };
 
@@ -23,4 +24,5 @@ export const AppRoutes = {
   MAIN: `/`,
   MOVIE_PLAYER: `/player/:id`,
   MY_LIST: `/mylist`,
+  PAGE_NOT_FOUND: `/404`,
 };

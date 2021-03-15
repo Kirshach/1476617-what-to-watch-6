@@ -1,24 +1,22 @@
 import React from 'react';
 import {Redirect} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import {filmArrayPropTypes} from '../../prop-types/film';
 import {useQueryFilmById} from '../../hooks/useQueryFilmById';
 import {useNavigation} from '../../hooks/useNavigation';
 
-import {withFilms} from '../../hocs/withFilms';
+import {withFilms, withFilmsPropTypes} from '../../hocs/withFilms';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 
-const MoviePlayer = ({films, isLoadingFilms}) => {
+const MoviePlayer = ({films, filmsHaveLoaded}) => {
   const film = useQueryFilmById(films);
   const {goBack} = useNavigation();
 
-  if (!isLoadingFilms && !film) {
+  if (filmsHaveLoaded && !film.id) {
     return <Redirect to="/404" />;
   }
 
-  return isLoadingFilms
+  return filmsHaveLoaded
     ? <LoadingPlaceholder />
     : (
       <div className="player">
@@ -62,10 +60,7 @@ const MoviePlayer = ({films, isLoadingFilms}) => {
     );
 };
 
-MoviePlayer.propTypes = {
-  films: filmArrayPropTypes,
-  isLoadingFilms: PropTypes.bool.isRequired,
-};
+MoviePlayer.propTypes = withFilmsPropTypes;
 
 const MoviePlayerWithFilms = withFilms(MoviePlayer);
 

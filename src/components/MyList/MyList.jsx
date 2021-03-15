@@ -1,17 +1,14 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
 
-import {withFilms} from '../../hocs/withFilms';
-
-import {filmArrayPropTypes} from '../../prop-types/film';
+import {withFilms, withFilmsPropTypes} from '../../hocs/withFilms';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
-const MyList = ({films, isLoadingFilms}) => {
+const MyList = ({films, filmsHaveLoaded}) => {
   return (
     <div className="user-page">
       <PageHeader className="user-page__head">
@@ -24,7 +21,7 @@ const MyList = ({films, isLoadingFilms}) => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          {isLoadingFilms ? <LoadingPlaceholder/> : <MovieCardList films={films} />}
+          {filmsHaveLoaded ? <MovieCardList films={films}/> : <LoadingPlaceholder/> }
         </div>
 
       </section>
@@ -34,10 +31,7 @@ const MyList = ({films, isLoadingFilms}) => {
   );
 };
 
-MyList.propTypes = {
-  films: filmArrayPropTypes,
-  isLoadingFilms: PropTypes.bool.isRequired,
-};
+MyList.propTypes = withFilmsPropTypes;
 
 const MyListWithFilms = withFilms(MyList);
 

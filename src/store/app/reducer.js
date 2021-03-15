@@ -4,10 +4,12 @@ import {Genres} from '../../const';
 export const FILMS_BATCH = 8;
 
 const initialState = {
+  reviewsHaveLoaded: false,
+  filmHasLoaded: false,
   filmsShowingCount: FILMS_BATCH,
+  filmsHaveLoaded: false,
   genre: Genres.allGenres,
   isAuthorized: false,
-  isLoadingFilms: true,
   userData: {
     avatarUrl: null,
     email: null,
@@ -18,6 +20,16 @@ const initialState = {
 
 export const appReducer = (state = initialState, action) => {
   switch (action.type) {
+    case ActionType.SET_FILM_HAS_LOADED:
+      return {
+        ...state,
+        filmHasLoaded: action.payload,
+      };
+    case ActionType.SET_FILMS_HAVE_LOADED:
+      return {
+        ...state,
+        filmsHaveLoaded: action.payload,
+      };
     case ActionType.SET_GENRE:
       return {
         ...state,
@@ -28,10 +40,10 @@ export const appReducer = (state = initialState, action) => {
         ...state,
         isAuthorized: action.payload,
       };
-    case ActionType.SET_IS_LOADING_FILMS:
+    case ActionType.SET_REVIEWS_HAVE_LOADED:
       return {
         ...state,
-        isLoadingFilms: action.payload,
+        reviewsHaveLoaded: action.payload,
       };
     case ActionType.SET_USER_DATA:
       return {

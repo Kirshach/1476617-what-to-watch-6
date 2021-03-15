@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import {APIRoutes} from '../const';
 import {adaptFromApi} from '../utils/adaptFromApi';
 
 const API_TIMEOUT = 5000;
@@ -17,6 +18,9 @@ const createAPI = () => {
   return api;
 };
 
+const getFilmAPIRoute = (id) => [APIRoutes.FILMS, id].join(`/`);
+const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
+
 const api = createAPI();
 
-export {api};
+export {api, getFilmAPIRoute, getCommentsAPIRoute};

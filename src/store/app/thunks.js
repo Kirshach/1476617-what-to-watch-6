@@ -1,7 +1,7 @@
 import {setIsAuthorizedAction, setUserDataAction, redirectAction} from './actions';
 import {AppRoutes, APIRoutes} from '../../const';
 
-export const authorize = (payload) => (dispatch, _getState, api) => {
+export const authorizeThunk = (payload) => (dispatch, _getState, api) => {
   return api.post(APIRoutes.LOGIN, payload)
     .then(({data}) => {
       dispatch(setUserDataAction(data));
@@ -10,7 +10,7 @@ export const authorize = (payload) => (dispatch, _getState, api) => {
     });
 };
 
-export const checkAuth = () => (dispatch, _getState, api) => {
+export const checkAuthThunk = () => (dispatch, _getState, api) => {
   return api.get(APIRoutes.LOGIN)
     .then(() => dispatch(setIsAuthorizedAction(true)));
 };

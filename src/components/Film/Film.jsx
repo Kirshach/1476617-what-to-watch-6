@@ -1,19 +1,15 @@
-import React from 'react';
-import {Link, Redirect, useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
+import React, {useEffect} from 'react';
+import {Link, useParams} from 'react-router-dom';
 
 import Description from './Description';
 import Details from './Details';
 import MovieCardList from '../MovieCardList/MovieCardList';
-import Reviews from './Reviews';
+import ReviewsList from './ReviewsList';
 import TabBar from './TabBar';
 
-import {withFilms} from '../../hocs/withFilms';
+import {withFilmAndFilms, withFilmAndFilmsPropTypes} from '../../hocs/withFilmAndFilms';
 
-import {useQueryFilmById} from '../../hooks/useQueryFilmById';
-import {useNavigation} from '../../hooks/useNavigation';
-
-import {filmArrayPropTypes} from '../../prop-types/film';
+import {useNavigation} from '../../hooks';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageFooter from '../PageFooter/PageFooter';
@@ -38,29 +34,34 @@ const getFilmPageBody = (film, tab) => {
     case Routes.details:
       return <Details film={film}/>;
     case Routes.reviews:
-      return <Reviews/>;
+      return <ReviewsList id={film.id}/>;
     default: throw new Error(`Invalid route provided to getFilmPageBody function`);
   }
 };
 
 const getSimilarFilms = (films, film) => {
-  return films.filter((anotherFilm) => anotherFilm.genre === film.genre && anotherFilm !== film);
+  return films && films.filter(
+      (anotherFilm) => anotherFilm.genre === film.genre && anotherFilm.id !== film.id
+  ) || [];
 };
 
-const Film = ({films, isLoadingFilms}) => {
-  const {tab = ``} = useParams();
-  const film = useQueryFilmById(films);
+const Film = ({
+  dispatchFetchFilmThunk,
+  film,
+  films,
+  filmHasLoaded,
+  filmsHaveLoaded
+}) => {
   const {redirect} = useNavigation();
-
-  if (!isLoadingFilms && !film) {
-    return <Redirect to="/404" />;
-  }
-
+  const {id, tab = ``} = useParams();
   const similarFilms = getSimilarFilms(films, film);
 
-  return isLoadingFilms
-    ? <LoadingPlaceholder />
-    : (
+  useEffect(() => {
+    dispatchFetchFilmThunk(id);
+  }, [id]);
+
+  return filmHasLoaded
+    ? (
       <>
         <section className="movie-card movie-card--full">
           <div className="movie-card__hero">
@@ -117,31 +118,28 @@ const Film = ({films, isLoadingFilms}) => {
 
         <div className="page-content">
 
-
           <section className="catalog catalog--like-this">
-            {
-              similarFilms.length > 0
-            &&
-            <>
-              <h2 className="catalog__title">More like this</h2>
-              <div className="catalog__movies-list">
-                <MovieCardList films={similarFilms} />
-              </div>
-            </>
-            }
+            {similarFilms.length > 0 &&
+              <>
+                <h2 className="catalog__title">More like this</h2>
+                <div className="catalog__movies-list">
+                  {filmsHaveLoaded
+                    ? <MovieCardList films={similarFilms} />
+                    : <LoadingPlaceholder />}
+                </div>
+              </>}
           </section>
 
           <PageFooter />
         </div>
       </>
+    ) : (
+      <LoadingPlaceholder />
     );
 };
 
-Film.propTypes = {
-  films: filmArrayPropTypes,
-  isLoadingFilms: PropTypes.bool.isRequired,
-};
+Film.propTypes = withFilmAndFilmsPropTypes;
 
-const FilmWithFilms = withFilms(Film);
+const FilmWithFilmsAndFilmData = withFilmAndFilms(Film);
 
-export default FilmWithFilms;
+export default FilmWithFilmsAndFilmData;

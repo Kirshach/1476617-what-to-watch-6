@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {useForm} from '../../hooks/useForm';
-import {authorize} from '../../store/app/thunks';
+import {authorizeThunk} from '../../store/app/thunks';
 
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
@@ -83,7 +83,7 @@ SignIn.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchAuthorizeAction: (payload) => dispatch(authorize(payload))
+  dispatchAuthorizeAction: (payload) => dispatch(authorizeThunk(payload))
 });
 
 const SignInWithStore = connect(null, mapDispatchToProps)(SignIn);
