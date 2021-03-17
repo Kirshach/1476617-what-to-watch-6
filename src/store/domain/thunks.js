@@ -4,9 +4,10 @@ import {
   setReviewsAction,
 } from './actions';
 import {
-  setReviewsHaveLoaded,
   setFilmHasLoadedAction,
   setFilmsHaveLoadedAction,
+  setIsSendingReview,
+  setReviewsHaveLoaded,
 } from '../app/actions';
 import {getFilmAPIRoute, getCommentsAPIRoute} from '../../api/api';
 import {APIRoutes} from '../../const';
@@ -18,7 +19,6 @@ export const fetchFilmThunk = (id) => (dispatch, _getState, api) => {
   return api.get(getFilmAPIRoute(id))
     .then(({data}) => {
       dispatch(setFilmAction(data));
-      dispatch(setFilmHasLoadedAction(true));
     })
     .catch(({response: {status}}) => {
       if (status === 404) {
@@ -26,6 +26,9 @@ export const fetchFilmThunk = (id) => (dispatch, _getState, api) => {
       } else {
         throw new Error(`Unhandled response status recieved on film fetch attempt`);
       }
+    })
+    .finally(() => {
+      dispatch(setFilmHasLoadedAction(true));
     });
 };
 
@@ -35,6 +38,9 @@ export const fetchFilmsThunk = () => (dispatch, _getState, api) => {
     .then(({data}) => {
       dispatch(setFilmsAction(data));
       dispatch(setFilmsHaveLoadedAction(true));
+    })
+    .finally(() => {
+      dispatch(setFilmsHaveLoadedAction(true));
     });
 };
 
@@ -43,9 +49,22 @@ export const fetchReviewsThunk = (id) => (dispatch, _getState, api) => {
   return api.get(getCommentsAPIRoute(id))
     .then(({data}) => {
       dispatch(setReviewsAction({id, data}));
-      dispatch(setReviewsHaveLoaded(true));
     })
-    .catch(({response: {data}}) => {
-      throw new Error(`Uncaught error on ${getCommentsAPIRoute(id)} route fetch: server responded with "${data.error}"`);
+    .catch(({response}) => {
+      throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${getCommentsAPIRoute(id)} route fetch`);
+    })
+    .finally(() => {
+      dispatch(setReviewsHaveLoaded(true));
+    });
+};
+
+export const postReviewThunk = (id, reqBody) => (dispatch, _getState, api) => {
+  dispatch(setIsSendingReview(true));
+  return api.post(getCommentsAPIRoute(id), reqBody)
+    .then((res) => {
+      console.log(res);
+    })
+    .finally(() => {
+      dispatch(setIsSendingReview(false));
     });
 };

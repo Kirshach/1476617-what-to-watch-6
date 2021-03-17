@@ -1,9 +1,10 @@
 import React, {Fragment} from 'react';
 import {Link, Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
-import {withFilms, withFilmsPropTypes} from '../../hocs/withFilms';
-import {useQueryFilmById} from '../../hooks/useQueryFilmById';
-import {useForm} from '../../hooks/useForm.js';
+import {useForm} from '../../hooks/useForm';
+import {postReviewThunk} from '../../store/domain/thunks';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageHeader from '../PageHeader/PageHeader';
@@ -14,22 +15,24 @@ const INITIAL_STATE = {
   comment: ``
 };
 
-export const AddReview = ({films, filmsHaveLoaded}) => {
-  const film = useQueryFilmById(films);
-
+export const AddReview = ({
+  dispatchPostReviewThunk,
+  film,
+  filmHasLoaded,
+}) => {
   const {values, handlers} = useForm(INITIAL_STATE);
   const {comment} = values;
+
   const onSubmit = (evt) => {
     evt.preventDefault();
-    // eslint-disable-next-line no-alert
-    alert(JSON.stringify(values));
+    dispatchPostReviewThunk(film.id, values);
   };
 
-  if (filmsHaveLoaded && !film.id) {
+  if (filmHasLoaded && !film.id) {
     return <Redirect to="/404" />;
   }
 
-  return filmsHaveLoaded
+  return filmHasLoaded
     ? (
       <section className="movie-card movie-card--full">
         <div className="movie-card__header">
@@ -96,8 +99,21 @@ export const AddReview = ({films, filmsHaveLoaded}) => {
     );
 };
 
-AddReview.propTypes = withFilmsPropTypes;
+AddReview.propTypes = {
+  film: PropTypes.object.isRequired,
+  filmHasLoaded: PropTypes.bool.isRequired,
+  dispatchPostReviewThunk: PropTypes.func.isRequired,
+};
 
-const AddReviewWithFilms = withFilms(AddReview);
+const mapStateToProps = (state) => ({
+  film: state.domain.film,
+  filmHasLoaded: state.app.filmHasLoaded,
+});
 
-export default AddReviewWithFilms;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchPostReviewThunk: (id, reqBody) => dispatch(postReviewThunk(id, reqBody))
+});
+
+const AddReviewWithStore = connect(mapStateToProps, mapDispatchToProps)(AddReview);
+
+export default AddReviewWithStore;

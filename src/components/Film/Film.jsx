@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import Description from './Description';
 import Details from './Details';
@@ -7,7 +9,8 @@ import MovieCardList from '../MovieCardList/MovieCardList';
 import ReviewsList from './ReviewsList';
 import TabBar from './TabBar';
 
-import {withFilmAndFilms, withFilmAndFilmsPropTypes} from '../../hocs/withFilmAndFilms';
+import {filmArrayPropTypes} from '../../prop-types/film';
+import {fetchFilmThunk} from '../../store/domain/thunks';
 
 import {useNavigation} from '../../hooks';
 
@@ -50,7 +53,8 @@ const Film = ({
   film,
   films,
   filmHasLoaded,
-  filmsHaveLoaded
+  filmsHaveLoaded,
+  isAuthorized,
 }) => {
   const {redirect} = useNavigation();
   const {id, tab = ``} = useParams();
@@ -94,7 +98,12 @@ const Film = ({
                     </svg>
                     <span>My list</span>
                   </button>
-                  <Link to={`/films/${film.id}/review`} className="btn movie-card__button">Add review</Link>
+
+                  {isAuthorized &&
+                    <Link to={`/films/${film.id}/review`} className="btn movie-card__button">
+                      Add review
+                    </Link>}
+
                 </div>
               </div>
             </div>
@@ -138,8 +147,31 @@ const Film = ({
     );
 };
 
-Film.propTypes = withFilmAndFilmsPropTypes;
+Film.propTypes = {
+  dispatchFetchFilmThunk: PropTypes.func.isRequired,
+  film: PropTypes.object.isRequired,
+  films: filmArrayPropTypes,
+  filmHasLoaded: PropTypes.bool.isRequired,
+  filmsHaveLoaded: PropTypes.bool.isRequired,
+  isAuthorized: PropTypes.bool.isRequired,
+};
 
-const FilmWithFilmsAndFilmData = withFilmAndFilms(Film);
+const mapStateToProps = (state) => ({
+  film: state.domain.film,
+  films: state.domain.films,
+  filmHasLoaded: state.app.filmHasLoaded,
+  filmsHaveLoaded: state.app.filmsHaveLoaded,
+  isAuthorized: state.app.isAuthorized,
+});
 
-export default FilmWithFilmsAndFilmData;
+const mapDispatchToProps = (dispatch) => ({
+  dispatchFetchFilmThunk: (id) => dispatch(fetchFilmThunk(id)),
+});
+
+
+const FilmWithStore = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Film);
+
+export default FilmWithStore;
