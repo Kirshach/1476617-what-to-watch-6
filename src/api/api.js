@@ -18,7 +18,7 @@ const createAPI = () => {
   return api;
 };
 
-const getFilmAPIRoute = (id) => [APIRoutes.FILMS, id].join(`/`);
+const getFilmAPIRoute = (id, subroute) => [APIRoutes.FILMS, id, subroute].join(`/`);
 const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
 
 const api = createAPI();

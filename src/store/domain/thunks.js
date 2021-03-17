@@ -4,15 +4,14 @@ import {
   setReviewsAction,
 } from './actions';
 import {
+  redirectAction,
   setFilmHasLoadedAction,
   setFilmsHaveLoadedAction,
   setIsSendingReview,
   setReviewsHaveLoaded,
 } from '../app/actions';
 import {getFilmAPIRoute, getCommentsAPIRoute} from '../../api/api';
-import {APIRoutes} from '../../const';
-import {history} from '../../history';
-import {AppRoutes} from '../../const';
+import {APIRoutes, AppRoutes, FilmAppSubroutes} from '../../const';
 
 export const fetchFilmThunk = (id) => (dispatch, _getState, api) => {
   dispatch(setFilmHasLoadedAction(false));
@@ -22,7 +21,7 @@ export const fetchFilmThunk = (id) => (dispatch, _getState, api) => {
     })
     .catch(({response: {status}}) => {
       if (status === 404) {
-        history.push(AppRoutes.PAGE_NOT_FOUND);
+        dispatch(redirectAction(AppRoutes.PAGE_NOT_FOUND));
       } else {
         throw new Error(`Unhandled response status recieved on film fetch attempt`);
       }
@@ -61,8 +60,8 @@ export const fetchReviewsThunk = (id) => (dispatch, _getState, api) => {
 export const postReviewThunk = (id, reqBody) => (dispatch, _getState, api) => {
   dispatch(setIsSendingReview(true));
   return api.post(getCommentsAPIRoute(id), reqBody)
-    .then((res) => {
-      console.log(res);
+    .then(() => {
+      dispatch(redirectAction(getFilmAPIRoute(id, FilmAppSubroutes.reviews)));
     })
     .finally(() => {
       dispatch(setIsSendingReview(false));

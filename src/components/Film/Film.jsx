@@ -18,25 +18,21 @@ import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
-export const Routes = {
-  overview: ``,
-  details: `details`,
-  reviews: `reviews`
-};
+import {FilmAppSubroutes} from '../../const';
 
 const TABS = [
-  {label: `Overview`, route: Routes.overview},
-  {label: `Details`, route: Routes.details},
-  {label: `Reviews`, route: Routes.reviews},
+  {label: `Overview`, route: FilmAppSubroutes.overview},
+  {label: `Details`, route: FilmAppSubroutes.details},
+  {label: `Reviews`, route: FilmAppSubroutes.reviews},
 ];
 
 const getFilmPageBody = (film, tab) => {
   switch (tab) {
-    case Routes.overview:
+    case FilmAppSubroutes.overview:
       return <Description film={film}/>;
-    case Routes.details:
+    case FilmAppSubroutes.details:
       return <Details film={film}/>;
-    case Routes.reviews:
+    case FilmAppSubroutes.reviews:
       return <ReviewsList id={film.id}/>;
     default: throw new Error(`Invalid route provided to getFilmPageBody function`);
   }

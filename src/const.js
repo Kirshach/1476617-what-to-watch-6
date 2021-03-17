@@ -26,3 +26,9 @@ export const AppRoutes = {
   MY_LIST: `/mylist`,
   PAGE_NOT_FOUND: `/404`,
 };
+
+export const FilmAppSubroutes = {
+  overview: ``,
+  details: `details`,
+  reviews: `reviews`
+};
