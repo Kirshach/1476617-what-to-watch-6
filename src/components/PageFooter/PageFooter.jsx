@@ -14,4 +14,6 @@ const PageFooter = () => {
   );
 };
 
-export default PageFooter;
+PageFooter.propTypes = {};
+
+export default React.memo(PageFooter);

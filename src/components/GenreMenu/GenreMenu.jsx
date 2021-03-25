@@ -1,15 +1,21 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useSelector, useDispatch} from 'react-redux';
 
-import {setGenreAction, showDefaultFilmsAmountAction} from '../../store/app/actions';
+import {setGenreAction, showDefaultFilmsAmountAction} from '../../store/app/state/actions';
+import {genreSelector} from '../../store/app/state/selectors';
+import {Genres} from '../../const';
 
-export const GenreMenu = ({currentGenre, genres, setGenre, showDefaultFilmsAmount}) => {
+const genres = Object.values(Genres);
+
+export const GenreMenu = () => {
+  const dispatch = useDispatch();
+  const currentGenre = useSelector(genreSelector);
+
   const getClassName = (genre) => `catalog__genres-item ${currentGenre === genre ? `catalog__genres-item--active` : ``}`;
   const getHandleGenreClickHandler = (genre) => (evt) => {
     evt.preventDefault();
-    setGenre(genre);
-    showDefaultFilmsAmount();
+    dispatch(setGenreAction(genre));
+    dispatch(showDefaultFilmsAmountAction());
   };
 
   return (
@@ -25,22 +31,4 @@ export const GenreMenu = ({currentGenre, genres, setGenre, showDefaultFilmsAmoun
   );
 };
 
-GenreMenu.propTypes = {
-  currentGenre: PropTypes.string.isRequired,
-  genres: PropTypes.arrayOf(PropTypes.string).isRequired,
-  setGenre: PropTypes.func,
-  showDefaultFilmsAmount: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentGenre: state.app.genre,
-  genres: state.domain.genres,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setGenre: (genre) => dispatch(setGenreAction(genre)),
-  showDefaultFilmsAmount: () => dispatch(showDefaultFilmsAmountAction()),
-});
-
-const GenreMenuWithStore = connect(mapStateToProps, mapDispatchToProps)(GenreMenu);
-export default GenreMenuWithStore;
+export default GenreMenu;

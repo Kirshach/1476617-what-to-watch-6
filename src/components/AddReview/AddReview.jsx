@@ -1,31 +1,27 @@
 import React, {Fragment} from 'react';
-import {Link, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
+import {Link, Redirect, useParams} from 'react-router-dom';
 
 import {useForm} from '../../hooks/useForm';
+
 import {postReviewThunk} from '../../store/domain/thunks';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageHeader from '../PageHeader/PageHeader';
 
-const INITIAL_RATING = 8;
-const INITIAL_STATE = {
-  rating: INITIAL_RATING,
-  comment: ``
-};
+import {INITIAL_STATE} from './_const';
+import {useFilm} from '../../hooks/useFilm';
 
-export const AddReview = ({
-  dispatchPostReviewThunk,
-  film,
-  filmHasLoaded,
-}) => {
-  const {values, handlers} = useForm(INITIAL_STATE);
-  const {comment} = values;
+export const AddReview = () => {
+  const dispatch = useDispatch();
+  const {id} = useParams();
+  const {film, filmHasLoaded} = useFilm(id);
+
+  const {values, values: {comment}, handlers} = useForm(INITIAL_STATE);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    dispatchPostReviewThunk(film.id, values);
+    dispatch(postReviewThunk(id, values));
   };
 
   if (filmHasLoaded && !film.id) {
@@ -99,21 +95,6 @@ export const AddReview = ({
     );
 };
 
-AddReview.propTypes = {
-  film: PropTypes.object.isRequired,
-  filmHasLoaded: PropTypes.bool.isRequired,
-  dispatchPostReviewThunk: PropTypes.func.isRequired,
-};
+AddReview.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  film: state.domain.film,
-  filmHasLoaded: state.app.filmHasLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchPostReviewThunk: (id, reqBody) => dispatch(postReviewThunk(id, reqBody))
-});
-
-const AddReviewWithStore = connect(mapStateToProps, mapDispatchToProps)(AddReview);
-
-export default AddReviewWithStore;
+export default AddReview;

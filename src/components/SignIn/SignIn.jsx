@@ -1,23 +1,20 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 
+import {authorizeThunk} from '../../store/app/auth/thunks';
 import {useForm} from '../../hooks/useForm';
-import {authorizeThunk} from '../../store/app/thunks';
+import {initialState} from './_const';
 
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
-const initialState = {
-  email: ``,
-  password: ``,
-};
-
-const SignIn = ({dispatchAuthorizeAction}) => {
+const SignIn = () => {
+  const dispatch = useDispatch();
   const {values, handlers} = useForm(initialState);
+
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    dispatchAuthorizeAction(values);
+    dispatch(authorizeThunk(values));
   };
 
   return (
@@ -78,14 +75,6 @@ const SignIn = ({dispatchAuthorizeAction}) => {
   );
 };
 
-SignIn.propTypes = {
-  dispatchAuthorizeAction: PropTypes.func.isRequired,
-};
+SignIn.propTypes = {};
 
-const mapDispatchToProps = (dispatch) => ({
-  dispatchAuthorizeAction: (payload) => dispatch(authorizeThunk(payload))
-});
-
-const SignInWithStore = connect(null, mapDispatchToProps)(SignIn);
-
-export default SignInWithStore;
+export default SignIn;

@@ -1,14 +1,12 @@
 import React from 'react';
 
-import MovieCardList from '../MovieCardList/MovieCardList';
-
-import {withFilms, withFilmsPropTypes} from '../../hocs/withFilms';
-
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
+import MovieCardList from '../MovieCardList/MovieCardList';
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
-const MyList = ({films, filmsHaveLoaded}) => {
+const MyList = () => {
+  // всё править!!
   return (
     <div className="user-page">
       <PageHeader className="user-page__head">
@@ -31,8 +29,6 @@ const MyList = ({films, filmsHaveLoaded}) => {
   );
 };
 
-MyList.propTypes = withFilmsPropTypes;
+MyList.propTypes = {};
 
-const MyListWithFilms = withFilms(MyList);
-
-export default MyListWithFilms;
+export default MyList;

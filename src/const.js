@@ -1,34 +1,30 @@
 export const Genres = {
-  allGenres: `All genres`,
-  comedies: `Comedies`,
-  crime: `Crime`,
-  documentary: `Documentary`,
-  dramas: `Dramas`,
-  horror: `Horror`,
   kidsAndFamily: `Kids & Family`,
-  romance: `Romance`,
-  sciFi: `Sci-Fi`,
+  documentary: `Documentary`,
+  allGenres: `All genres`,
   thriller: `Thrillers`,
+  comedies: `Comedies`,
+  romance: `Romance`,
+  horror: `Horror`,
+  dramas: `Dramas`,
+  sciFi: `Sci-Fi`,
+  crime: `Crime`,
 };
 
 export const APIRoutes = {
-  FILMS: `/films`,
+  PROMO_FILM: `/films/promo`,
   COMMENTS: `/comments`,
+  FILMS: `/films`,
   LOGIN: `/login`,
 };
 
 export const AppRoutes = {
+  MOVIE_PLAYER_BASE_ROUTE: `/player`,
   ADD_REVIEW: `/films/:id/review`,
+  MOVIE_PLAYER: `/player/:id`,
   FILM: `/films/:id/:tab?`,
+  PAGE_NOT_FOUND: `/404`,
+  MY_LIST: `/mylist`,
   LOGIN: `/login`,
   MAIN: `/`,
-  MOVIE_PLAYER: `/player/:id`,
-  MY_LIST: `/mylist`,
-  PAGE_NOT_FOUND: `/404`,
-};
-
-export const FilmAppSubroutes = {
-  overview: ``,
-  details: `details`,
-  reviews: `reviews`
 };

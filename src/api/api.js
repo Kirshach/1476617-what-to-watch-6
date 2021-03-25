@@ -18,9 +18,9 @@ const createAPI = () => {
   return api;
 };
 
-const getFilmAPIRoute = (id, subroute) => [APIRoutes.FILMS, id, subroute].join(`/`);
-const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
-
-const api = createAPI();
-
-export {api, getFilmAPIRoute, getCommentsAPIRoute};
+export const throwAPIRequestError = (response, route) => {
+  throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${route} route fetch`);
+};
+export const getFilmAPIRoute = (id, subroute) => [APIRoutes.FILMS, id, subroute].join(`/`);
+export const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
+export const api = createAPI();

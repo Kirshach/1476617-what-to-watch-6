@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmPropTypes} from './_prop-types';
 
 const Description = ({film}) => {
   return (

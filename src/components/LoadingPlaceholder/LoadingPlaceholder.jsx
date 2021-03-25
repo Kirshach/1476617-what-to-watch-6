@@ -1,6 +1,5 @@
 import React, {useEffect, useState} from 'react';
-
-const getNewDots = (dots) => dots.length >= 3 ? `.` : dots + `.`;
+import {getNewDots} from './_helpers';
 
 const LoadingPlaceholder = () => {
   const [dots, setDots] = useState(`.`);

@@ -1,8 +1,7 @@
 import React, {Fragment} from "react";
 
-import {filmPropTypes} from "../../prop-types/film";
-
-import {formatDuration} from "../../utils/formatDuration";
+import {formatDuration} from './_helpers';
+import {filmPropTypes} from "./_prop-types";
 
 const Details = ({film}) => {
   return (

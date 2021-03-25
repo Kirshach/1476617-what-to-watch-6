@@ -2,7 +2,7 @@ import React from "react";
 
 import MovieCard from '../MovieCard/MovieCard';
 
-import {filmArrayPropTypes} from '../../prop-types/film';
+import {filmArrayPropTypes} from '../Film/_prop-types';
 
 const MovieCardList = ({films}) => {
   return (
@@ -12,9 +12,7 @@ const MovieCardList = ({films}) => {
           <MovieCard
             key={film.id}
             film={film}
-          />
-        ))
-      }
+          />))}
     </>
   );
 };

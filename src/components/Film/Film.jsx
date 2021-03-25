@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
-import Description from './Description';
-import Details from './Details';
 import MovieCardList from '../MovieCardList/MovieCardList';
-import ReviewsList from './ReviewsList';
 import TabBar from './TabBar';
 
-import {filmArrayPropTypes} from '../../prop-types/film';
+import {filmHasLoadedSelector, filmsHaveLoadedSelector} from '../../store/app/state/selectors';
+import {filmSelector, filmsSelector} from '../../store/domain/selectors';
+import {isAuthorizedSelector} from '../../store/app/auth/selectors';
 import {fetchFilmThunk} from '../../store/domain/thunks';
 
 import {useNavigation} from '../../hooks';
@@ -18,47 +16,30 @@ import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
-import {FilmAppSubroutes} from '../../const';
+import {getFilmPageBody, getSimilarFilms, getPlayerRoute} from './_helpers';
 
-const TABS = [
-  {label: `Overview`, route: FilmAppSubroutes.overview},
-  {label: `Details`, route: FilmAppSubroutes.details},
-  {label: `Reviews`, route: FilmAppSubroutes.reviews},
-];
-
-const getFilmPageBody = (film, tab) => {
-  switch (tab) {
-    case FilmAppSubroutes.overview:
-      return <Description film={film}/>;
-    case FilmAppSubroutes.details:
-      return <Details film={film}/>;
-    case FilmAppSubroutes.reviews:
-      return <ReviewsList id={film.id}/>;
-    default: throw new Error(`Invalid route provided to getFilmPageBody function`);
-  }
-};
-
-const getSimilarFilms = (films, film) => {
-  return films && films.filter(
-      (anotherFilm) => anotherFilm.genre === film.genre && anotherFilm.id !== film.id
-  ) || [];
-};
-
-const Film = ({
-  dispatchFetchFilmThunk,
-  film,
-  films,
-  filmHasLoaded,
-  filmsHaveLoaded,
-  isAuthorized,
-}) => {
+const Film = () => {
+  const dispatch = useDispatch();
   const {redirect} = useNavigation();
+
+  const film = useSelector(filmSelector);
+  const films = useSelector(filmsSelector);
+  const filmHasLoaded = useSelector(filmHasLoadedSelector);
+  const filmsHaveLoaded = useSelector(filmsHaveLoadedSelector);
+  const isAuthorized = useSelector(isAuthorizedSelector);
+
   const {id, tab = ``} = useParams();
   const similarFilms = getSimilarFilms(films, film);
 
   useEffect(() => {
-    dispatchFetchFilmThunk(id);
+    dispatch(fetchFilmThunk(id));
   }, [id]);
+
+  const handlePlayButtonClick = () => {
+    console.log(getPlayerRoute(id));
+    console.log(`aa`);
+    redirect(getPlayerRoute(id));
+  };
 
   return filmHasLoaded
     ? (
@@ -82,7 +63,7 @@ const Film = ({
                 </p>
 
                 <div className="movie-card__buttons">
-                  <button className="btn btn--play movie-card__button" type="button" onClick={() => redirect(`/player/${film.id}`)}>
+                  <button className="btn btn--play movie-card__button" type="button" onClick={handlePlayButtonClick}>
                     <svg viewBox="0 0 19 19" width="19" height="19">
                       <use xlinkHref="#play-s"></use>
                     </svg>
@@ -113,7 +94,7 @@ const Film = ({
 
               <div className="movie-card__desc">
 
-                <TabBar tabs={TABS}/>
+                <TabBar />
 
                 {getFilmPageBody(film, tab)}
               </div>
@@ -143,31 +124,6 @@ const Film = ({
     );
 };
 
-Film.propTypes = {
-  dispatchFetchFilmThunk: PropTypes.func.isRequired,
-  film: PropTypes.object.isRequired,
-  films: filmArrayPropTypes,
-  filmHasLoaded: PropTypes.bool.isRequired,
-  filmsHaveLoaded: PropTypes.bool.isRequired,
-  isAuthorized: PropTypes.bool.isRequired,
-};
+Film.propTypes = {};
 
-const mapStateToProps = (state) => ({
-  film: state.domain.film,
-  films: state.domain.films,
-  filmHasLoaded: state.app.filmHasLoaded,
-  filmsHaveLoaded: state.app.filmsHaveLoaded,
-  isAuthorized: state.app.isAuthorized,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchFilmThunk: (id) => dispatch(fetchFilmThunk(id)),
-});
-
-
-const FilmWithStore = connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(Film);
-
-export default FilmWithStore;
+export default Film;

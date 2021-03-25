@@ -1,11 +1,14 @@
 import React from 'react';
+import {useSelector} from 'react-redux';
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
 
+import {isAuthorizedSelector, userDataSelector} from '../../store/app/auth/selectors.js';
 import {AppRoutes} from '../../const.js';
 
-const UserBlock = ({isAuthorized, avatarUrl = ``}) => {
+const UserBlock = () => {
+  const isAuthorized = useSelector(isAuthorizedSelector);
+  const {avatarUrl} = useSelector(userDataSelector);
+
   return (
     <div className="user-block">
       {isAuthorized ? (
@@ -26,16 +29,4 @@ const UserBlock = ({isAuthorized, avatarUrl = ``}) => {
   );
 };
 
-UserBlock.propTypes = {
-  isAuthorized: PropTypes.bool.isRequired,
-  avatarUrl: PropTypes.string,
-};
-
-const mapStateToProps = (state) => ({
-  isAuthorized: state.app.isAuthorized,
-  avatarUrl: state.app.userData.avatarUrl,
-});
-
-const UserBlockWithStore = connect(mapStateToProps)(UserBlock);
-
-export default UserBlockWithStore;
+export default UserBlock;

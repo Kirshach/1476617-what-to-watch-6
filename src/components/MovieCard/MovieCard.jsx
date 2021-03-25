@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
-import {filmPropTypes} from '../../prop-types/film';
+import {filmPropTypes} from '../Film/_prop-types';
 
 const TIMEOUT_BEFORE_PLAYING_PREVIEW = 500;
 
@@ -18,12 +18,10 @@ const MovieCard = ({film}) => {
       const playerTimeout = setTimeout(() => {
         setIsPlaying(true);
       }, TIMEOUT_BEFORE_PLAYING_PREVIEW);
-
       clearingFunction = () => {
         clearTimeout(playerTimeout);
       };
     }
-
     return clearingFunction;
   }, [isHovered]);
 

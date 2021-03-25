@@ -1,24 +1,27 @@
 import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {fetchReviewsThunk} from '../../store/domain/thunks';
+import {reviewsSelector} from '../../store/domain/selectors';
+import {reviewsHaveLoadedSelector} from '../../store/app/state/selectors';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import Review from './Review';
 
-const ReviewsList = ({
-  dispatchFetchReviewsThunk,
-  id,
-  reviews,
-  reviewsHaveLoaded,
-}) => {
+const ReviewsList = ({id}) => {
+  const dispatch = useDispatch();
+
+  const reviews = useSelector(reviewsSelector);
+  const reviewsHaveLoaded = useSelector(reviewsHaveLoadedSelector);
+
   useEffect(() => {
     if (reviewsHaveLoaded && reviews.filmId === id) {
       return;
     }
-    dispatchFetchReviewsThunk(id);
+    dispatch(fetchReviewsThunk(id));
   }, [id]);
+
   return reviewsHaveLoaded ? (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
@@ -39,24 +42,7 @@ const ReviewsList = ({
 };
 
 ReviewsList.propTypes = {
-  dispatchFetchReviewsThunk: PropTypes.func.isRequired,
   id: PropTypes.number.isRequired,
-  reviews: PropTypes.shape({
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    filmId: PropTypes.number,
-  }),
-  reviewsHaveLoaded: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  reviews: state.domain.reviews,
-  reviewsHaveLoaded: state.app.reviewsHaveLoaded,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  dispatchFetchReviewsThunk: (id) => dispatch(fetchReviewsThunk(id)),
-});
-
-const ReviewsListWithReviewsData = connect(mapStateToProps, mapDispatchToProps)(ReviewsList);
-
-export default ReviewsListWithReviewsData;
+export default ReviewsList;

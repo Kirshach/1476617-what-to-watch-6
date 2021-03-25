@@ -1,13 +1,20 @@
 import {ActionType} from './actions';
-import {Genres} from '../../const';
+
+const FILMS = `films`;
+const FILM = `film`;
+const PROMO = `promo`;
+const REVIEWS = `reviews`;
+
+const FILM_ID = `filmId`;
+const DATA = `data`;
 
 const initialState = {
-  films: [],
-  film: {},
-  genres: Object.values(Genres),
-  reviews: {
-    filmId: null,
-    data: [],
+  [FILMS]: [],
+  [FILM]: {},
+  [PROMO]: {},
+  [REVIEWS]: {
+    [FILM_ID]: null,
+    [DATA]: [],
   },
 };
 
@@ -16,22 +23,29 @@ export const domainReducer = (state = initialState, action) => {
     case ActionType.SET_FILM:
       return ({
         ...state,
-        film: action.payload
+        [FILM]: action.payload,
       });
     case ActionType.SET_FILMS:
       return ({
         ...state,
-        films: action.payload
+        [FILMS]: action.payload,
+      });
+    case ActionType.SET_PROMO:
+      return ({
+        ...state,
+        [PROMO]: action.payload,
       });
     case ActionType.SET_REVIEWS:
       return ({
         ...state,
-        reviews: {
-          filmId: action.payload.id,
-          data: action.payload.data,
+        [REVIEWS]: {
+          [FILM_ID]: action.payload.id,
+          [DATA]: action.payload.data,
         }
       });
     default:
       return state;
   }
 };
+
+export const DomainNS = {FILMS, FILM, PROMO, REVIEWS};

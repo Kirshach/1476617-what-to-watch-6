@@ -2,7 +2,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import {redirectMiddleware} from './app/middlewares';
+import {redirectMiddleware} from './middlewares';
 // import {checkAuthThunk} from '../store/app/thunks';
 import {fetchFilmsThunk} from '../store/domain/thunks';
 import {rootReducer as reducer} from '../store/rootReducer';

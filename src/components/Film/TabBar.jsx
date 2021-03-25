@@ -1,19 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-
 import {Link, useParams} from 'react-router-dom';
 
-const getItemClassName = (isCurrentRoute) => `movie-nav__item ${isCurrentRoute ? `movie-nav__item--active` : ``}`;
+import {getTabClassName} from './_helpers';
+import {Tabs} from './_const';
 
-const TabBar = ({tabs}) => {
+const TabBar = () => {
   const {id, tab = ``} = useParams();
   const filmRoute = `/films/${id}`;
 
   return (
     <nav className="movie-nav movie-card__nav">
       <ul className="movie-nav__list">
-        {tabs.map(({label, route}, index) => (
-          <li className={getItemClassName(route === tab)} key={index}>
+        {Tabs.map(({label, route}, index) => (
+          <li className={getTabClassName(route === tab)} key={index}>
             <Link className="movie-nav__link" to={`${filmRoute}/${route}`}>{label}</Link>
           </li>
         ))}
@@ -22,11 +21,6 @@ const TabBar = ({tabs}) => {
   );
 };
 
-TabBar.propTypes = {
-  tabs: PropTypes.arrayOf(PropTypes.shape({
-    label: PropTypes.string.isRequired,
-    route: PropTypes.string,
-  })).isRequired
-};
+TabBar.propTypes = {};
 
 export default TabBar;

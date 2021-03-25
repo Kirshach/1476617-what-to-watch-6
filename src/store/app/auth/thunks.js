@@ -1,5 +1,7 @@
-import {setIsAuthorizedAction, setUserDataAction, redirectAction} from './actions';
-import {AppRoutes, APIRoutes} from '../../const';
+import {AppRoutes, APIRoutes} from '../../../const';
+
+import {redirectAction} from '../../middlewares';
+import {setIsAuthorizedAction, setUserDataAction} from './actions';
 
 export const authorizeThunk = (payload) => (dispatch, _getState, api) => {
   return api.post(APIRoutes.LOGIN, payload)
