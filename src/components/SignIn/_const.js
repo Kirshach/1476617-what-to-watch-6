@@ -1,4 +1,12 @@
+const EMAIL = `email`;
+const PASSWORD = `password`;
+
 export const initialState = {
-  email: ``,
-  password: ``,
+  [EMAIL]: ``,
+  [PASSWORD]: ``,
+};
+
+export const FIELD_NAMES = {
+  EMAIL,
+  PASSWORD,
 };

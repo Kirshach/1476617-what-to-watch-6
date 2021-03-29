@@ -8,10 +8,10 @@ const PageNotFound = () => {
     <div className="user-page">
       <PageHeader className="user-page__head" noUserBlock/>
 
-      <main className="page-not-found">
-        <h2 className="page-not-found__heading">404</h2>
-        <p className="page-not-found__message">Sorry, the page you&apos;re looking for could not be found</p>
-        <footer className="page-not-found__footer">It could be you, it could be us...</footer>
+      <main className="info-screen">
+        <h2 className="info-screen__heading">404</h2>
+        <p className="info-screen__message">Sorry, the page you&apos;re looking for could not be found</p>
+        <footer className="info-screen__footer">It could be you, it could be us...</footer>
       </main>
 
       <PageFooter />

@@ -1,5 +1,6 @@
-import {history} from '../history';
 import {setIsOnlineAction} from './app/state/actions';
+import {history} from '../history';
+import {AppRoutes} from '../const';
 
 const REDIRECT = `app/redirect`;
 const HANDLE_API_ERROR = `app/handleAPIErrorAction`;
@@ -28,14 +29,14 @@ export const redirectMiddleware = (_store) => (next) => (action) => {
 
 export const handleAPIErrorMiddleware = (store) => (next) => (action) => {
   if (action.type === HANDLE_API_ERROR) {
-    if (action.payload) {
-      console.log(action.payload);
+    if (
+      (!action.payload || !action.payload.response) && !window.navigator.onLine
+      || action.payload.code === `ECONNABORTED`
+    ) {
       store.dispatch(setIsOnlineAction(false));
+    } else if (action.payload.response && action.payload.response.status === 404) {
+      store.dispatch(redirectAction(AppRoutes.PAGE_NOT_FOUND));
     }
   }
   return next(action);
 };
-
-// if (error.response.status === 404) {
-//         dispatch(redirectAction(AppRoutes.PAGE_NOT_FOUND));
-//       }

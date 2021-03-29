@@ -16,11 +16,12 @@ import {INITIAL_STATE} from './_const';
 import {validate, formatValues} from './_helpers';
 
 const AddReview = () => {
+  const dispatch = useDispatch();
+
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState();
 
-  const dispatch = useDispatch();
   const {id} = useParams();
   const [film, filmHasLoaded] = useFilm(id);
 
@@ -121,7 +122,7 @@ const AddReview = () => {
           {
             hasAttemptedSubmit &&
               [[`apiError`, apiError], ...Object.entries(errors)].map(([key, error]) => (
-                <p className="add-review__error" key={key}>
+                <p className="submit-error" key={key}>
                   {error}
                 </p>
               ))

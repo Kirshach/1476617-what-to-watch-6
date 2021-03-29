@@ -2,7 +2,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import thunk from 'redux-thunk';
 
-import {redirectMiddleware} from './middlewares';
+import {redirectMiddleware, handleAPIErrorMiddleware} from './middlewares';
 import {checkAuthThunk} from '../store/app/auth/thunks';
 import {fetchFilmsThunk} from '../store/domain/thunks';
 import {rootReducer as reducer} from '../store/rootReducer';
@@ -13,6 +13,7 @@ const store = createStore(
     reducer,
     composeWithDevTools(
         applyMiddleware(
+            handleAPIErrorMiddleware,
             redirectMiddleware,
             thunk.withExtraArgument(api),
         ),

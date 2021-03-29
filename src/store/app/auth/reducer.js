@@ -27,6 +27,11 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         [USER_DATA]: action.payload,
       };
+    case ActionType.RESET_USER_DATA:
+      return {
+        ...state,
+        [USER_DATA]: initialState[USER_DATA],
+      };
     case ActionType.SET_HAS_CHECKED_AUTH:
       return {
         ...state,

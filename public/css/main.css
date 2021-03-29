@@ -364,7 +364,7 @@ main {
   background: #E8C3C4;
   border-radius: 8px; }
 
-.add-review__error {
+.submit-error {
   margin-top: 0.7em;
   color: #ff2050;
   line-height: 1.4em;
@@ -649,6 +649,13 @@ main {
   .movie-card--full {
     padding-bottom: 45px;
     min-height: 100vh; }
+
+.movie-card__no-reviews {
+  margin-top: 1.5em;
+  margin-left: 2em;
+  font-size: 24px;
+  line-height: 1.5em;
+  color: rgba(0, 0, 0, 0.4);}
 
 .movie-card__hero {
   position: relative;
@@ -1420,7 +1427,7 @@ main {
   -webkit-transform: translateY(-50%);
           transform: translateY(-50%); }
 
-.page-not-found {
+.info-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1429,16 +1436,22 @@ main {
   padding: 3em 0 9em;
   margin: 0 auto; }
 
-.page-not-found__heading {
+.info-screen__heading {
   font-size: 3em;
   margin-bottom: 1em; }
 
-.page-not-found__message {
+.info-screen__message {
   margin-bottom: 2.4em;
   font-size: 1.5em; }
 
-.page-not-found__footer {
+.info-screen__footer {
   font-size: 1em; }
+
+.info-screen__btn {
+  font-size: 24px;
+  padding: 0.8em 1em;
+  margin-top: 1.3em;
+  border: 1px solid rgba(217, 205, 141, 0.7); }
 
 .loading-placeholder {
   display: flex;

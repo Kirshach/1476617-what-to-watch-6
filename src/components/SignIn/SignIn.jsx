@@ -1,20 +1,39 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
 
 import {authorizeThunk} from '../../store/app/auth/thunks';
 import {useForm} from '../../hooks/useForm';
 import {initialState} from './_const';
+import {validate} from './_helpers';
 
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
+
 const SignIn = () => {
   const dispatch = useDispatch();
-  const {values, handlers} = useForm(initialState);
+
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState();
+
+  const {values, handlers, errors, isValid} = useForm(initialState, validate);
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(authorizeThunk(values));
+    if (isSubmitting) {
+      return;
+    }
+    setHasAttemptedSubmit(true);
+
+    if (isValid) {
+      setIsSubmitting(true);
+      dispatch(authorizeThunk(values))
+        .catch(() => {
+          setApiError(`An error occured while submitting. Please, check your connection and try again.`);
+          setIsSubmitting(false);
+        });
+    }
   };
 
   return (
@@ -60,6 +79,15 @@ const SignIn = () => {
                 Password
               </label>
             </div>
+
+            {
+              hasAttemptedSubmit &&
+              [[`apiError`, apiError], ...Object.entries(errors)].map(([key, error]) => (
+                <p className="submit-error" key={key}>
+                  {error}
+                </p>
+              ))
+            }
 
           </div>
 

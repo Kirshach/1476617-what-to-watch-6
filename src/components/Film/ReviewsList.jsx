@@ -25,15 +25,18 @@ const ReviewsList = ({id}) => {
   return reviewsHaveLoaded ? (
     <div className="movie-card__reviews movie-card__row">
       <div className="movie-card__reviews-col">
-        {reviews.data.map((review) => (
-          <Review
-            key={review.id}
-            date={review.date}
-            rating={review.rating}
-            username={review.user.name}
-            comment={review.comment}
-          />
-        ))}
+        {reviews.data.length > 0
+          ? reviews.data.map((review) => (
+            <Review
+              key={review.id}
+              date={review.date}
+              rating={review.rating}
+              username={review.user.name}
+              comment={review.comment}
+            />
+          )) : (
+            <div className="movie-card__no-reviews">No reviews left yet</div>
+          )}
       </div>
     </div>
   ) : (

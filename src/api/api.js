@@ -23,8 +23,9 @@ export const getFavouriteFilmStatusAPIRoute = (id, isFavourite) => {
   return [APIRoutes.FAVOURITE, id, status].join(`/`);
 };
 export const throwAPIRequestError = (response, route) => {
-  console.log({...response});
-  // throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${route} route fetch`);
+  if (response && response.status) {
+    throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${route} route fetch`);
+  }
 };
 export const getFilmAPIRoute = (id, subroute) => [APIRoutes.FILMS, id, subroute].join(`/`);
 export const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
