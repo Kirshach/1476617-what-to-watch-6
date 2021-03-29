@@ -1,18 +1,6 @@
-export const Genres = {
-  kidsAndFamily: `Kids & Family`,
-  documentary: `Documentary`,
-  allGenres: `All genres`,
-  thriller: `Thrillers`,
-  comedies: `Comedies`,
-  romance: `Romance`,
-  horror: `Horror`,
-  dramas: `Dramas`,
-  sciFi: `Sci-Fi`,
-  crime: `Crime`,
-};
-
 export const APIRoutes = {
   PROMO_FILM: `/films/promo`,
+  FAVOURITE: `/favorite`,
   COMMENTS: `/comments`,
   FILMS: `/films`,
   LOGIN: `/login`,
@@ -23,8 +11,11 @@ export const AppRoutes = {
   ADD_REVIEW: `/films/:id/review`,
   MOVIE_PLAYER: `/player/:id`,
   FILM: `/films/:id/:tab?`,
+  FILM_BASE_URL: `/films`,
   PAGE_NOT_FOUND: `/404`,
   MY_LIST: `/mylist`,
   LOGIN: `/login`,
   MAIN: `/`,
 };
+
+export const AllGenres = `All genres`;

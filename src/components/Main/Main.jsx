@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useMemo, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
 
-import {genreSelector, filmsShowingCountSelector, filmsHaveLoadedSelector} from "../../store/app/state/selectors";
-import {filmsSelector} from '../../store/domain/selectors';
-import {showMoreFilmsAction} from '../../store/app/state/actions';
+import {filmsHaveLoadedSelector} from "../../store/app/state/selectors";
+import {postFavouriteFilmStatus} from "../../store/domain/thunks";
+import {filmsByGenreSelector} from '../../store/domain/derived';
+import {setPromoAction} from "../../store/domain/actions";
 import {useNavigation, usePromo} from '../../hooks';
 import {getPlayerRoute} from "../Film/_helpers";
-import {Genres} from '../../const';
 
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import MovieCardList from '../MovieCardList/MovieCardList';
@@ -14,34 +14,38 @@ import PageFooter from "../PageFooter/PageFooter";
 import PageHeader from "../PageHeader/PageHeader";
 import GenreMenu from '../GenreMenu/GenreMenu';
 
+import {FILMS_BATCH} from './_const';
+
 const Main = () => {
   const dispatch = useDispatch();
+  const [filmsShowingCount, setFilmsShowingCount] = useState(FILMS_BATCH);
   const {redirect} = useNavigation();
 
-  const films = useSelector(filmsSelector);
-  const selectedGenre = useSelector(genreSelector);
-  const filmsShowingCount = useSelector(filmsShowingCountSelector);
   const filmsHaveLoaded = useSelector(filmsHaveLoadedSelector);
-  const {
-    promo: {id, name, genre, released, posterImage, backgroundImage},
-    promoHasLoaded,
-  } = usePromo();
+  const filmsByGenre = useSelector(filmsByGenreSelector);
+  const filmsShowing = useMemo(
+      () => filmsByGenre.slice(0, filmsShowingCount),
+      [filmsByGenre, filmsShowingCount]
+  );
 
-  const filmsByGenre = films
-    .filter((film) => selectedGenre === Genres.allGenres ? true : film.genre === selectedGenre);
-  const filmsShowing = filmsByGenre.slice(0, filmsShowingCount);
-  const handleShowMoreButtonClick = () => dispatch(showMoreFilmsAction());
-  const isShowingShowMoreButton = filmsShowingCount < filmsByGenre.length;
+  const [promo, promoHasLoaded] = usePromo();
+
+  const handleShowMoreButtonClick = () => setFilmsShowingCount((count) => count + FILMS_BATCH);
 
   const handlePlayButtonClick = () => {
-    redirect(getPlayerRoute(id));
+    redirect(getPlayerRoute(promo.id));
+  };
+
+  const handleMyListButtonClick = async () => {
+    const film = await dispatch(postFavouriteFilmStatus(promo.id, promo.isFavorite));
+    dispatch(setPromoAction(film));
   };
 
   return promoHasLoaded ? (
     <div>
       <section className="movie-card">
         <div className="movie-card__bg">
-          <img src={backgroundImage} alt={name} />
+          <img src={promo.backgroundImage} alt={promo.name} />
         </div>
         <h1 className="visually-hidden">WTW</h1>
 
@@ -51,17 +55,17 @@ const Main = () => {
           <div className="movie-card__info">
             <div className="movie-card__poster">
               <img
-                src={posterImage}
-                alt={`${name} poster`}
+                src={promo.posterImage}
+                alt={`${promo.name} poster`}
                 width={218}
                 height={327}
               />
             </div>
             <div className="movie-card__desc">
-              <h2 className="movie-card__title">{name}</h2>
+              <h2 className="movie-card__title">{promo.name}</h2>
               <p className="movie-card__meta">
-                <span className="movie-card__genre">{genre}</span>
-                <span className="movie-card__year">{released}</span>
+                <span className="movie-card__genre">{promo.genre}</span>
+                <span className="movie-card__year">{promo.released}</span>
               </p>
               <div className="movie-card__buttons">
                 <button
@@ -77,9 +81,10 @@ const Main = () => {
                 <button
                   className="btn btn--list movie-card__button"
                   type="button"
+                  onClick={handleMyListButtonClick}
                 >
                   <svg viewBox="0 0 19 20" width={19} height={20}>
-                    <use xlinkHref="#add" />
+                    <use xlinkHref={promo.isFavorite ? `#in-list` : `#add`} />
                   </svg>
                   <span>My list</span>
                 </button>
@@ -92,7 +97,7 @@ const Main = () => {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenreMenu />
+          <GenreMenu onGenreChange={() => setFilmsShowingCount(FILMS_BATCH)}/>
 
           <div className="catalog__movies-list">
             {filmsHaveLoaded ? <MovieCardList films={filmsShowing} /> : <LoadingPlaceholder/>}
@@ -100,7 +105,7 @@ const Main = () => {
 
           <div className="catalog__more">
             {
-              isShowingShowMoreButton &&
+              filmsShowingCount < filmsByGenre.length &&
               <button
                 className="catalog__button"
                 type="button"

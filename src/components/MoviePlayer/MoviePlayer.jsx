@@ -24,7 +24,7 @@ const MoviePlayer = () => {
   const {goBack} = useNavigation();
   const {id} = useParams();
 
-  const {film, filmHasLoaded} = useFilm(id);
+  const [film, filmHasLoaded] = useFilm(id);
 
   if (filmHasLoaded && !film.id) {
     return <Redirect to="/404" />;

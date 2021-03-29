@@ -1,17 +1,13 @@
-import {useSelector, useDispatch} from 'react-redux';
-
+import {promoHasLoadedSelector} from '../store/app/state/selectors';
 import {promoSelector} from '../store/domain/selectors';
 import {fetchPromoThunk} from '../store/domain/thunks';
-import {promoHasLoadedSelector} from '../store/app/state/selectors';
+import {getUseServerDataHook} from './_helpers';
 
-export const usePromo = () => {
-  const dispatch = useDispatch();
-  const promo = useSelector(promoSelector);
-  const promoHasLoaded = useSelector(promoHasLoadedSelector);
+const shouldFetchPromo = (promo) => !promo.id;
 
-  if (!promo.id) {
-    dispatch(fetchPromoThunk());
-  }
-
-  return {promo, promoHasLoaded};
-};
+export const usePromo = getUseServerDataHook(
+    promoSelector,
+    promoHasLoadedSelector,
+    shouldFetchPromo,
+    fetchPromoThunk
+);

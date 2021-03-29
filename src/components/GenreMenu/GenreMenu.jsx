@@ -1,13 +1,13 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {setGenreAction, showDefaultFilmsAmountAction} from '../../store/app/state/actions';
+import {setGenreAction} from '../../store/app/state/actions';
 import {genreSelector} from '../../store/app/state/selectors';
-import {Genres} from '../../const';
+import {genresSelector} from '../../store/domain/derived';
 
-const genres = Object.values(Genres);
-
-export const GenreMenu = () => {
+export const GenreMenu = ({onGenreChange}) => {
+  const genres = useSelector(genresSelector);
   const dispatch = useDispatch();
   const currentGenre = useSelector(genreSelector);
 
@@ -15,7 +15,7 @@ export const GenreMenu = () => {
   const getHandleGenreClickHandler = (genre) => (evt) => {
     evt.preventDefault();
     dispatch(setGenreAction(genre));
-    dispatch(showDefaultFilmsAmountAction());
+    onGenreChange();
   };
 
   return (
@@ -29,6 +29,10 @@ export const GenreMenu = () => {
       ))}
     </ul>
   );
+};
+
+GenreMenu.propTypes = {
+  onGenreChange: PropTypes.func.isRequired,
 };
 
 export default GenreMenu;

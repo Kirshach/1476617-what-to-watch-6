@@ -21,7 +21,7 @@ export const getFilmPageBody = (film, tab) => {
 export const getSimilarFilms = (films, film) => {
   return films && films.filter(
       (anotherFilm) => anotherFilm.genre === film.genre && anotherFilm.id !== film.id
-  ) || [];
+  ).slice(0, 4) || [];
 };
 export const formatDuration = (time) => {
   const hours = Math.floor(time / 60);
@@ -30,3 +30,21 @@ export const formatDuration = (time) => {
 };
 export const getPlayerRoute = (id) => `${AppRoutes.MOVIE_PLAYER_BASE_ROUTE}/${id}`;
 export const getTabClassName = (isCurrentRoute) => `movie-nav__item ${isCurrentRoute ? `movie-nav__item--active` : ``}`;
+export const getVerboseRating = (score) => {
+  let verboseRating;
+  if (score < 0 || score > 10) {
+    throw new Error(`Unknown rating ${score} received`);
+  } else if (score < 3) {
+    verboseRating = `Bad`;
+  } else if (score < 5) {
+    verboseRating = `Normal`;
+  } else if (score < 8) {
+    verboseRating = `Good`;
+  } else if (score < 10) {
+    verboseRating = `Very Good`;
+  } else if (score === 10) {
+    verboseRating = `Awesome`;
+  }
+  return verboseRating;
+};
+export const formatRating = (rating) => rating.toFixed(1);

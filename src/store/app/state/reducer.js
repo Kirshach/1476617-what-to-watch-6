@@ -1,23 +1,23 @@
-import {Genres} from '../../../const';
+import {AllGenres} from '../../../const';
 import {ActionType} from './actions';
 
-export const FILMS_BATCH = 8;
-
+const FAVOURITE_FILMS_HAVE_LOADED = `favouriteFilmsHaveLoaded`;
 const REVIEWS_HAVE_LOADED = `reviewsHaveLoaded`;
-const FILMS_SHOWING_COUNT = `filmsShowingCount`;
 const FILMS_HAVE_LOADED = `filmsHaveLoaded`;
 const PROMO_HAS_LOADED = `promoHasLoaded`;
 const FILM_HAS_LOADED = `filmHasLoaded`;
+const IS_ONLINE = `isOnline`;
 const GENRE = `genre`;
 
 const initialState = {
+  [FAVOURITE_FILMS_HAVE_LOADED]: false,
   [REVIEWS_HAVE_LOADED]: false,
   [FILMS_HAVE_LOADED]: false,
   [PROMO_HAS_LOADED]: false,
   [FILM_HAS_LOADED]: false,
+  [IS_ONLINE]: true,
 
-  [FILMS_SHOWING_COUNT]: FILMS_BATCH,
-  [GENRE]: Genres.allGenres,
+  [GENRE]: AllGenres,
 };
 
 export const stateReducer = (state = initialState, action) => {
@@ -27,10 +27,20 @@ export const stateReducer = (state = initialState, action) => {
         ...state,
         [FILM_HAS_LOADED]: action.payload,
       };
+    case ActionType.SET_FAVOURITE_FILMS_HAVE_LOADED:
+      return {
+        ...state,
+        [FAVOURITE_FILMS_HAVE_LOADED]: action.payload,
+      };
     case ActionType.SET_FILMS_HAVE_LOADED:
       return {
         ...state,
         [FILMS_HAVE_LOADED]: action.payload,
+      };
+    case ActionType.SET_IS_ONLINE:
+      return {
+        ...state,
+        [IS_ONLINE]: action.payload,
       };
     case ActionType.SET_PROMO_HAS_LOADED:
       return {
@@ -47,26 +57,17 @@ export const stateReducer = (state = initialState, action) => {
         ...state,
         [REVIEWS_HAVE_LOADED]: action.payload,
       };
-    case ActionType.SHOW_DEFAULT_FILMS_AMOUNT:
-      return {
-        ...state,
-        [FILMS_SHOWING_COUNT]: FILMS_BATCH,
-      };
-    case ActionType.SHOW_MORE_FILMS:
-      return {
-        ...state,
-        [FILMS_SHOWING_COUNT]: state[FILMS_SHOWING_COUNT] + (action.payload || FILMS_BATCH),
-      };
     default:
       return state;
   }
 };
 
 export const StateNS = {
+  FAVOURITE_FILMS_HAVE_LOADED,
   REVIEWS_HAVE_LOADED,
-  FILMS_SHOWING_COUNT,
   FILMS_HAVE_LOADED,
   PROMO_HAS_LOADED,
   FILM_HAS_LOADED,
+  IS_ONLINE,
   GENRE,
 };

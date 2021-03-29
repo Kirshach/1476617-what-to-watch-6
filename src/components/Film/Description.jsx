@@ -1,14 +1,16 @@
 import React from 'react';
 
 import {filmPropTypes} from './_prop-types';
+import {getVerboseRating} from './_helpers';
+import {formatRating} from './_helpers';
 
 const Description = ({film}) => {
   return (
     <>
       <div className="movie-rating">
-        <div className="movie-rating__score">{film.rating}</div>
+        <div className="movie-rating__score">{formatRating(film.rating)}</div>
         <p className="movie-rating__meta">
-          <span className="movie-rating__level">Very good</span>
+          <span className="movie-rating__level">{getVerboseRating(film.rating)}</span>
           <span className="movie-rating__count">{film.scoresCount} ratings</span>
         </p>
       </div>

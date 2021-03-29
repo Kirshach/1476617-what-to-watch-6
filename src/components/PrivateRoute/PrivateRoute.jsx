@@ -1,10 +1,15 @@
-import React, {useSelector} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Route, Redirect} from 'react-router-dom';
-import {isAuthorizedSelector} from '../../store/app/auth/selectors';
+import {useAuth} from '../../hooks';
+import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 
 const PrivateRoute = ({children, ...props}) => {
-  const isAuthorized = useSelector(isAuthorizedSelector);
+  const [isAuthorized, hasCheckedAuth] = useAuth();
+
+  if (!hasCheckedAuth) {
+    return <LoadingPlaceholder/>;
+  }
 
   return isAuthorized
     ? <Route {...props}>{children}</Route>

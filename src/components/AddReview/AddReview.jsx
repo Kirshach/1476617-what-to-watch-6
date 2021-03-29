@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Link, Redirect, useParams} from 'react-router-dom';
 
@@ -9,19 +9,38 @@ import {postReviewThunk} from '../../store/domain/thunks';
 import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageHeader from '../PageHeader/PageHeader';
 
-import {INITIAL_STATE} from './_const';
 import {useFilm} from '../../hooks/useFilm';
+import {getFilmUrl} from '../../utils';
 
-export const AddReview = () => {
+import {INITIAL_STATE} from './_const';
+import {validate, formatValues} from './_helpers';
+
+const AddReview = () => {
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState();
+
   const dispatch = useDispatch();
   const {id} = useParams();
-  const {film, filmHasLoaded} = useFilm(id);
+  const [film, filmHasLoaded] = useFilm(id);
 
-  const {values, values: {comment}, handlers} = useForm(INITIAL_STATE);
+  const {values, errors, handlers, isValid} = useForm(INITIAL_STATE, validate, hasAttemptedSubmit);
 
   const onSubmit = (evt) => {
     evt.preventDefault();
-    dispatch(postReviewThunk(id, values));
+    if (isSubmitting) {
+      return;
+    }
+    setHasAttemptedSubmit(true);
+
+    if (isValid) {
+      setIsSubmitting(true);
+      dispatch(postReviewThunk(id, formatValues(values)))
+        .catch(() => {
+          setApiError(`An error occured while submitting. Please, check your connection and try again.`);
+          setIsSubmitting(false);
+        });
+    }
   };
 
   if (filmHasLoaded && !film.id) {
@@ -42,7 +61,7 @@ export const AddReview = () => {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={`films/${film.id}`} className="breadcrumbs__link">{film.name}</Link>
+                  <Link to={getFilmUrl(film.id)} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -64,8 +83,18 @@ export const AddReview = () => {
                   const starsCount = index + 1;
                   return (
                     <Fragment key={starsCount}>
-                      <input className="rating__input" id={`star-${starsCount}`} type="radio" name="rating" value={starsCount} onChange={handlers.rating}/>
-                      <label className="rating__label" htmlFor={`star-${starsCount}`}>Rating {starsCount}</label>
+                      <input
+                        className="rating__input"
+                        id={`star-${starsCount}`}
+                        type="radio"
+                        checked={values.rating === String(starsCount)}
+                        name="rating"
+                        value={starsCount}
+                        onChange={handlers.rating}
+                      />
+                      <label className="rating__label" htmlFor={`star-${starsCount}`}>
+                        Rating {starsCount}
+                      </label>
                     </Fragment>
                   );
                 })}
@@ -79,14 +108,24 @@ export const AddReview = () => {
                 id="review-text"
                 placeholder="Review text"
                 onChange={handlers.comment}
-                value={comment}
+                value={values.comment}
               />
               <div className="add-review__submit">
-                <button className="add-review__btn" type="submit">Post</button>
+                <button className="add-review__btn" type="submit" disabled={
+                  isSubmitting || hasAttemptedSubmit && !isValid
+                }>Post</button>
               </div>
 
             </div>
           </form>
+          {
+            hasAttemptedSubmit &&
+              [[`apiError`, apiError], ...Object.entries(errors)].map(([key, error]) => (
+                <p className="add-review__error" key={key}>
+                  {error}
+                </p>
+              ))
+          }
         </div>
 
       </section>

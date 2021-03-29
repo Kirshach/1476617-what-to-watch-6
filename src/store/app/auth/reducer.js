@@ -1,9 +1,11 @@
 import {ActionType} from './actions';
 
+const HAS_CHECKED_AUTH = `hasCheckedAuth`;
 const IS_AUTHORIZED = `isAuthorized`;
 const USER_DATA = `userData`;
 
 const initialState = {
+  [HAS_CHECKED_AUTH]: false,
   [IS_AUTHORIZED]: false,
   [USER_DATA]: {
     avatarUrl: null,
@@ -25,12 +27,18 @@ export const authReducer = (state = initialState, action) => {
         ...state,
         [USER_DATA]: action.payload,
       };
+    case ActionType.SET_HAS_CHECKED_AUTH:
+      return {
+        ...state,
+        [HAS_CHECKED_AUTH]: action.payload,
+      };
     default:
       return state;
   }
 };
 
 export const AuthNS = {
-  USER_DATA,
+  HAS_CHECKED_AUTH,
   IS_AUTHORIZED,
+  USER_DATA,
 };

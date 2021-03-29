@@ -24,4 +24,4 @@ PageHeader.propTypes = {
   noUserBlock: PropTypes.bool,
 };
 
-export default PageHeader;
+export default React.memo(PageHeader);

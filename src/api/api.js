@@ -1,7 +1,7 @@
 import axios from 'axios';
 
+import {adaptFromApi} from '../utils';
 import {APIRoutes} from '../const';
-import {adaptFromApi} from '../utils/adaptFromApi';
 
 const API_TIMEOUT = 5000;
 
@@ -18,9 +18,15 @@ const createAPI = () => {
   return api;
 };
 
+export const getFavouriteFilmStatusAPIRoute = (id, isFavourite) => {
+  const status = isFavourite ? `0` : `1`;
+  return [APIRoutes.FAVOURITE, id, status].join(`/`);
+};
 export const throwAPIRequestError = (response, route) => {
-  throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${route} route fetch`);
+  console.log({...response});
+  // throw new Error(`Server responded with status ${response.status} "${response.data.error}" on ${route} route fetch`);
 };
 export const getFilmAPIRoute = (id, subroute) => [APIRoutes.FILMS, id, subroute].join(`/`);
 export const getCommentsAPIRoute = (id) => [APIRoutes.COMMENTS, id].join(`/`);
 export const api = createAPI();
+

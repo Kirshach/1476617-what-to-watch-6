@@ -1,14 +1,15 @@
-import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, {useEffect, useState} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 
 import MovieCardList from '../MovieCardList/MovieCardList';
 import TabBar from './TabBar';
 
-import {filmHasLoadedSelector, filmsHaveLoadedSelector} from '../../store/app/state/selectors';
-import {filmSelector, filmsSelector} from '../../store/domain/selectors';
+import {filmsHaveLoadedSelector} from '../../store/app/state/selectors';
 import {isAuthorizedSelector} from '../../store/app/auth/selectors';
-import {fetchFilmThunk} from '../../store/domain/thunks';
+import {postFavouriteFilmStatus} from "../../store/domain/thunks";
+import {filmsSelector} from '../../store/domain/selectors';
+import {setFilmAction} from "../../store/domain/actions";
 
 import {useNavigation} from '../../hooks';
 
@@ -17,28 +18,39 @@ import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
 import {getFilmPageBody, getSimilarFilms, getPlayerRoute} from './_helpers';
+import {useFilm} from '../../hooks/useFilm';
+import {fetchFilmThunk} from '../../store/domain/thunks';
 
 const Film = () => {
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const dispatch = useDispatch();
   const {redirect} = useNavigation();
+  const {id, tab = ``} = useParams();
 
-  const film = useSelector(filmSelector);
   const films = useSelector(filmsSelector);
-  const filmHasLoaded = useSelector(filmHasLoadedSelector);
   const filmsHaveLoaded = useSelector(filmsHaveLoadedSelector);
   const isAuthorized = useSelector(isAuthorizedSelector);
-
-  const {id, tab = ``} = useParams();
-  const similarFilms = getSimilarFilms(films, film);
+  const [film, filmHasLoaded] = useFilm(id);
 
   useEffect(() => {
-    dispatch(fetchFilmThunk(id));
+    if (!isInitialLoad) {
+      dispatch(fetchFilmThunk(id));
+    }
   }, [id]);
 
+  useEffect(() => {
+    setIsInitialLoad(false);
+  }, []);
+
+  const similarFilms = getSimilarFilms(films, film);
+
   const handlePlayButtonClick = () => {
-    console.log(getPlayerRoute(id));
-    console.log(`aa`);
     redirect(getPlayerRoute(id));
+  };
+
+  const handleMyListButtonClick = async () => {
+    const updatedFilm = await dispatch(postFavouriteFilmStatus(film.id, film.isFavorite));
+    dispatch(setFilmAction(updatedFilm));
   };
 
   return filmHasLoaded
@@ -69,9 +81,13 @@ const Film = () => {
                     </svg>
                     <span>Play</span>
                   </button>
-                  <button className="btn btn--list movie-card__button" type="button">
-                    <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
+                  <button
+                    className="btn btn--list movie-card__button"
+                    type="button"
+                    onClick={handleMyListButtonClick}
+                  >
+                    <svg viewBox="0 0 19 20" width={19} height={20}>
+                      <use xlinkHref={film.isFavorite ? `#in-list` : `#add`} />
                     </svg>
                     <span>My list</span>
                   </button>

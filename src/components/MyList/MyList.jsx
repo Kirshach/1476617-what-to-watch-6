@@ -1,12 +1,15 @@
 import React from 'react';
 
-import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
-import MovieCardList from '../MovieCardList/MovieCardList';
 import PageFooter from '../PageFooter/PageFooter';
 import PageHeader from '../PageHeader/PageHeader';
 
+import {useFavouriteFilms} from '../../hooks';
+
+import {getFavouriteMoviesListComponent} from './_helpers';
+
 const MyList = () => {
-  // всё править!!
+  const [favouriteFilms, favouriteFilmsHaveLoaded] = useFavouriteFilms();
+
   return (
     <div className="user-page">
       <PageHeader className="user-page__head">
@@ -19,7 +22,7 @@ const MyList = () => {
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__movies-list">
-          {filmsHaveLoaded ? <MovieCardList films={films}/> : <LoadingPlaceholder/> }
+          {getFavouriteMoviesListComponent(favouriteFilms, favouriteFilmsHaveLoaded)}
         </div>
 
       </section>
