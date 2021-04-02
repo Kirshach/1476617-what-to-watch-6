@@ -16,7 +16,7 @@ const ReviewsList = ({id}) => {
   const reviewsHaveLoaded = useSelector(reviewsHaveLoadedSelector);
 
   useEffect(() => {
-    if (reviewsHaveLoaded && reviews.filmId === id) {
+    if (reviewsHaveLoaded && reviews.id === id) {
       return;
     }
     dispatch(fetchReviewsThunk(id));

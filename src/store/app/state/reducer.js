@@ -9,7 +9,7 @@ const FILM_HAS_LOADED = `filmHasLoaded`;
 const IS_ONLINE = `isOnline`;
 const GENRE = `genre`;
 
-const initialState = {
+export const initialState = {
   [FAVOURITE_FILMS_HAVE_LOADED]: false,
   [REVIEWS_HAVE_LOADED]: false,
   [FILMS_HAVE_LOADED]: false,

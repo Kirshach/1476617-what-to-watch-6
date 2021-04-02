@@ -4,7 +4,7 @@ import {history} from '../../history';
 import VideoPlayer from '../VideoPlayer/VideoPlayer';
 
 import {filmPropTypes} from '../Film/_prop-types';
-import {getFilmUrl} from '../../utils';
+import {APIRoutes} from '../../const';
 
 const TIMEOUT_BEFORE_PLAYING_PREVIEW = 500;
 
@@ -40,7 +40,7 @@ const MovieCard = ({film}) => {
       className="small-movie-card catalog__movies-card"
       onMouseOver={handleMouseOver}
       onMouseOut={handleMouseOut}
-      onClick={() => history.push(getFilmUrl(film.id))}
+      onClick={() => history.push(APIRoutes.getFilmRoute(film.id))}
       style={{cursor: `pointer`}}
     >
       <div className="small-movie-card__image">

@@ -7,19 +7,12 @@ import {
 } from './actions';
 
 import {
-  setFavouriteFilmsHaveLoaded,
+  setFavouriteFilmsHaveLoadedAction,
   setReviewsHaveLoadedAction,
   setFilmsHaveLoadedAction,
   setPromoHasLoadedAction,
   setFilmHasLoadedAction,
 } from '../app/state/actions';
-
-import {
-  getFavouriteFilmStatusAPIRoute,
-  getFilmAPIRoute,
-  getCommentsAPIRoute,
-  throwAPIRequestError,
-} from '../../api/api';
 
 import {redirectAction, handleAPIErrorAction} from '../middlewares';
 import {Subroutes} from '../../components/Film/_const';
@@ -34,7 +27,7 @@ const updateFilmsArrayWithNewFilm = (films, film, id) => {
 
 export const fetchFilmThunk = (id) => (dispatch, _getState, api) => {
   dispatch(setFilmHasLoadedAction(false));
-  return api.get(getFilmAPIRoute(id))
+  return api.get(APIRoutes.getFilmRoute(id))
     .then(({data}) => dispatch(setFilmAction(data)))
     .catch((error) => dispatch(handleAPIErrorAction(error)))
     .finally(() => dispatch(setFilmHasLoadedAction(true)));
@@ -44,57 +37,45 @@ export const fetchFilmsThunk = () => (dispatch, _getState, api) => {
   dispatch(setFilmsHaveLoadedAction(false));
   return api.get(APIRoutes.FILMS)
     .then(({data}) => dispatch(setFilmsAction(data)))
-    .catch((error) => {
-      dispatch(handleAPIErrorAction(error));
-      throwAPIRequestError(error, APIRoutes.FILMS);
-    })
+    .catch((error) => dispatch(handleAPIErrorAction(error)))
     .finally(() => dispatch(setFilmsHaveLoadedAction(true)));
 };
 
 export const fetchFavouriteFilmsThunk = () => (dispatch, _getState, api) => {
-  dispatch(setFavouriteFilmsHaveLoaded(false));
+  dispatch(setFavouriteFilmsHaveLoadedAction(false));
   return api.get(APIRoutes.FAVOURITE)
     .then(({data}) => dispatch(setFavouriteFilmsAction(data)))
-    .catch((error) => {
-      dispatch(handleAPIErrorAction(error));
-      throwAPIRequestError(error, APIRoutes.FAVOURITE);
-    })
-    .finally(() => dispatch(setFavouriteFilmsHaveLoaded(true)));
+    .catch((error) => dispatch(handleAPIErrorAction(error)))
+    .finally(() => dispatch(setFavouriteFilmsHaveLoadedAction(true)));
 };
 
 export const fetchPromoThunk = () => (dispatch, _getState, api) => {
   dispatch(setPromoHasLoadedAction(false));
   return api.get(APIRoutes.PROMO_FILM)
     .then(({data}) => dispatch(setPromoAction(data)))
-    .catch((error) => {
-      dispatch(handleAPIErrorAction(error));
-      throwAPIRequestError(error, APIRoutes.PROMO_FILM);
-    })
+    .catch((error) => dispatch(handleAPIErrorAction(error)))
     .finally(() => dispatch(setPromoHasLoadedAction(true)));
 };
 
 export const fetchReviewsThunk = (id) => (dispatch, _getState, api) => {
   dispatch(setReviewsHaveLoadedAction(false));
-  return api.get(getCommentsAPIRoute(id))
-  .then(({data}) => dispatch(setReviewsAction({id, data})))
-  .catch((error) => {
-    dispatch(handleAPIErrorAction(error));
-    throwAPIRequestError(error, getCommentsAPIRoute(id));
-  })
+  return api.get(APIRoutes.getCommentsRoute(id))
+    .then(({data}) => dispatch(setReviewsAction({id, data})))
+    .catch((error) => dispatch(handleAPIErrorAction(error)))
     .finally(() => dispatch(setReviewsHaveLoadedAction(true)));
 };
 
 export const postReviewThunk = (id, reqBody) => (dispatch, _getState, api) => {
-  return api.post(getCommentsAPIRoute(id), reqBody)
+  return api.post(APIRoutes.getCommentsRoute(id), reqBody)
     .then(() => {
       dispatch(fetchReviewsThunk(id));
-      dispatch(redirectAction(getFilmAPIRoute(id, Subroutes.reviews)));
+      dispatch(redirectAction(APIRoutes.getFilmRoute(id, Subroutes.reviews)));
     })
     .catch((error) => dispatch(handleAPIErrorAction(error)));
 };
 
-export const postFavouriteFilmStatus = (id, status) => (dispatch, getState, api) => {
-  return api.post(getFavouriteFilmStatusAPIRoute(id, status))
+export const postFavouriteFilmStatusThunk = (id, status) => (dispatch, getState, api) => {
+  return api.post(APIRoutes.getFavouriteFilmStatusRoute(id, status))
     .then(({data}) => {
       const state = getState();
       const newFilms = updateFilmsArrayWithNewFilm(filmsSelector(state), data, id);

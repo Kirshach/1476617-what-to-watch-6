@@ -10,7 +10,7 @@ import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
 import PageHeader from '../PageHeader/PageHeader';
 
 import {useFilm} from '../../hooks/useFilm';
-import {getFilmUrl} from '../../utils';
+import {APIRoutes} from '../../const';
 
 import {INITIAL_STATE} from './_const';
 import {validate, formatValues} from './_helpers';
@@ -62,7 +62,7 @@ const AddReview = () => {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <Link to={getFilmUrl(film.id)} className="breadcrumbs__link">{film.name}</Link>
+                  <Link to={APIRoutes.getFilmRoute(film.id)} className="breadcrumbs__link">{film.name}</Link>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>

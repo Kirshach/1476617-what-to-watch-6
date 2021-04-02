@@ -4,7 +4,7 @@ const HAS_CHECKED_AUTH = `hasCheckedAuth`;
 const IS_AUTHORIZED = `isAuthorized`;
 const USER_DATA = `userData`;
 
-const initialState = {
+export const initialState = {
   [HAS_CHECKED_AUTH]: false,
   [IS_AUTHORIZED]: false,
   [USER_DATA]: {

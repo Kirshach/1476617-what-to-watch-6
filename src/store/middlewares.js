@@ -2,8 +2,8 @@ import {setIsOnlineAction} from './app/state/actions';
 import {history} from '../history';
 import {AppRoutes} from '../const';
 
-const REDIRECT = `app/redirect`;
-const HANDLE_API_ERROR = `app/handleAPIErrorAction`;
+export const REDIRECT = `app/redirect`;
+export const HANDLE_API_ERROR = `app/handleAPIErrorAction`;
 
 export const Middlewares = {
   REDIRECT,
@@ -36,6 +36,8 @@ export const handleAPIErrorMiddleware = (store) => (next) => (action) => {
       store.dispatch(setIsOnlineAction(false));
     } else if (action.payload.response && action.payload.response.status === 404) {
       store.dispatch(redirectAction(AppRoutes.PAGE_NOT_FOUND));
+    } else {
+      throw new Error(`Unknown API request error: ${action.payload}`);
     }
   }
   return next(action);

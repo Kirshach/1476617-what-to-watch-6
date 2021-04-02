@@ -3,7 +3,7 @@ import {
   setIsAuthorizedAction,
   setUserDataAction,
   resetUserDataAction,
-  setHasCheckedAuth
+  setHasCheckedAuthAction
 } from './actions';
 import {AppRoutes, APIRoutes} from '../../../const';
 import {redirectAction, handleAPIErrorAction} from '../../middlewares';
@@ -13,7 +13,7 @@ export const authorizeThunk = (payload) => (dispatch, _getState, api) => {
     .then(({data}) => {
       dispatch(setIsAuthorizedAction(true));
       dispatch(setUserDataAction(data));
-      dispatch(setHasCheckedAuth(true));
+      dispatch(setHasCheckedAuthAction(true));
       dispatch(redirectAction(AppRoutes.MAIN));
     })
     .catch((error) => {
@@ -26,7 +26,6 @@ export const unauthorizeThunk = () => (dispatch, _getState, api) => {
     .then(() => {
       dispatch(setIsAuthorizedAction(false));
       dispatch(resetUserDataAction());
-      dispatch(setHasCheckedAuth(true));
       dispatch(redirectAction(AppRoutes.MAIN));
     })
     .catch((error) => {
@@ -34,13 +33,12 @@ export const unauthorizeThunk = () => (dispatch, _getState, api) => {
     });
 };
 
-
 export const checkAuthThunk = () => (dispatch, _getState, api) => {
   return api.get(APIRoutes.LOGIN)
     .then(({data}) => {
       dispatch(setIsAuthorizedAction(true));
       dispatch(setUserDataAction(data));
-      dispatch(setHasCheckedAuth(true));
+      dispatch(setHasCheckedAuthAction(true));
     })
     .catch((error) => {
       dispatch(handleAPIErrorAction(error));

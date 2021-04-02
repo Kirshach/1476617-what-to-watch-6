@@ -6,10 +6,10 @@ const PROMO = `promo`;
 const FILMS = `films`;
 const FILM = `film`;
 
-const FILM_ID = `filmId`;
+const FILM_ID = `id`;
 const DATA = `data`;
 
-const initialState = {
+export const initialState = {
   [FAVOURITE_FILMS]: null,
   [FILMS]: [],
   [FILM]: {},
@@ -45,10 +45,7 @@ export const domainReducer = (state = initialState, action) => {
     case ActionType.SET_REVIEWS:
       return ({
         ...state,
-        [REVIEWS]: {
-          [FILM_ID]: action.payload.id,
-          [DATA]: action.payload.data,
-        }
+        [REVIEWS]: action.payload
       });
     default:
       return state;

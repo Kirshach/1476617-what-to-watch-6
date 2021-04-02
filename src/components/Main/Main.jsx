@@ -2,7 +2,7 @@ import React, {useMemo, useState} from "react";
 import {useSelector, useDispatch} from 'react-redux';
 
 import {filmsHaveLoadedSelector} from "../../store/app/state/selectors";
-import {postFavouriteFilmStatus} from "../../store/domain/thunks";
+import {postFavouriteFilmStatusThunk} from "../../store/domain/thunks";
 import {filmsByGenreSelector} from '../../store/domain/derived';
 import {setPromoAction} from "../../store/domain/actions";
 import {useNavigation, usePromo} from '../../hooks';
@@ -37,7 +37,7 @@ const Main = () => {
   };
 
   const handleMyListButtonClick = async () => {
-    const film = await dispatch(postFavouriteFilmStatus(promo.id, promo.isFavorite));
+    const film = await dispatch(postFavouriteFilmStatusThunk(promo.id, promo.isFavorite));
     dispatch(setPromoAction(film));
   };
 

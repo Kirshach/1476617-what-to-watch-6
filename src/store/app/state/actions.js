@@ -16,7 +16,7 @@ export const setFilmsHaveLoadedAction = (payload) => ({
   payload,
 });
 
-export const setFavouriteFilmsHaveLoaded = (payload) => ({
+export const setFavouriteFilmsHaveLoadedAction = (payload) => ({
   type: SET_FAVOURITE_FILMS_HAVE_LOADED,
   payload,
 });

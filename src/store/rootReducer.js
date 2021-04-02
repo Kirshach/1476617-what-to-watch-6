@@ -3,8 +3,8 @@ import {combineReducers} from 'redux';
 import {appReducer} from './app/reducer';
 import {domainReducer} from './domain/reducer';
 
-const DOMAIN = `domain`;
-const APP = `app`;
+export const DOMAIN = `domain`;
+export const APP = `app`;
 
 const rootReducer = combineReducers({
   [DOMAIN]: domainReducer,

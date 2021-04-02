@@ -7,7 +7,7 @@ import TabBar from './TabBar';
 
 import {filmsHaveLoadedSelector} from '../../store/app/state/selectors';
 import {isAuthorizedSelector} from '../../store/app/auth/selectors';
-import {postFavouriteFilmStatus} from "../../store/domain/thunks";
+import {postFavouriteFilmStatusThunk} from "../../store/domain/thunks";
 import {filmsSelector} from '../../store/domain/selectors';
 import {setFilmAction} from "../../store/domain/actions";
 
@@ -49,7 +49,7 @@ const Film = () => {
   };
 
   const handleMyListButtonClick = async () => {
-    const updatedFilm = await dispatch(postFavouriteFilmStatus(film.id, film.isFavorite));
+    const updatedFilm = await dispatch(postFavouriteFilmStatusThunk(film.id, film.isFavorite));
     dispatch(setFilmAction(updatedFilm));
   };
 
