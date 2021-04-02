@@ -5,17 +5,18 @@ import {APIRoutes, AppRoutes} from '../../../const';
 import {api, createAPI} from '../../../api/api';
 import {adaptFromApi} from '../../../utils';
 import {ActionType} from './actions';
+
 import {
   authorizeThunk,
   checkAuthThunk,
   unauthorizeThunk,
 } from './thunks';
 
-const fakeLoginAPIreply = {
+const loginAPIreply = {
   "id": 1,
   "email": `test@example.com`,
   "name": `Test Example`,
-  "avatar_url": `img/1.png`
+  "avatar_url": `img/1.png`,
 };
 
 const mockAPI = new MockAdapter(api);
@@ -26,7 +27,7 @@ mockAPI
   })
   .reply(400)
   .onAny(APIRoutes.LOGIN)
-  .reply(200, fakeLoginAPIreply)
+  .reply(200, loginAPIreply)
   .onGet(APIRoutes.LOGOUT)
   .reply(200);
 
@@ -47,7 +48,7 @@ const setHasCheckedAuthTrueAction = {
 
 const setUserDataAction = {
   type: ActionType.SET_USER_DATA,
-  payload: adaptFromApi(fakeLoginAPIreply),
+  payload: adaptFromApi(loginAPIreply),
 };
 
 const resetUserDataAction = {
@@ -80,6 +81,7 @@ describe(`"auth" thunks work correctly`, () => {
 
   test(`authorizeThunk dispatches an API error action on an invalid API request`, async () => {
     const dispatch = jest.fn();
+
     const authDataWithEmptyPassword = {
       email: `lalala@mai.ru`,
       password: ``
@@ -112,12 +114,13 @@ describe(`"auth" thunks work correctly`, () => {
   });
 
   test(`checkAuthThunk dispatches an API error action on an invalid API request`, async () => {
+    const dispatch = jest.fn();
+
     const localLoginApi = createAPI();
     const failingLocalApiMock = new MockAdapter(localLoginApi);
     failingLocalApiMock
       .onGet(APIRoutes.LOGIN)
       .reply(401);
-    const dispatch = jest.fn();
 
     const checkAuth = checkAuthThunk({headers: {}});
     try {
@@ -136,7 +139,6 @@ describe(`"auth" thunks work correctly`, () => {
     const dispatch = jest.fn();
 
     const unauthorize = unauthorizeThunk();
-
     await unauthorize(dispatch, () => { }, api);
 
     expect(dispatch).toHaveBeenCalledTimes(3);

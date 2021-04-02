@@ -8,7 +8,7 @@ export const APIRoutes = {
 
   getFilmRoute: (id, tab) => tab ? [APIRoutes.FILMS, id, tab].join(`/`) : [APIRoutes.FILMS, id].join(`/`),
   getCommentsRoute: (id) => [APIRoutes.COMMENTS, id].join(`/`),
-  getFavouriteFilmStatusRoute: (id, isFavourite) => {
+  getFilmStatusRoute: (id, isFavourite) => {
     const status = isFavourite ? `0` : `1`;
     return [APIRoutes.FAVOURITE, id, status].join(`/`);
   }

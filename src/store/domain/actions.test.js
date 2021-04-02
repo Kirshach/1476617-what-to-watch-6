@@ -31,62 +31,57 @@ export const macbeth = {
   previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
 };
 
-export const revenant = {
-  name: `The Revenant`,
-  posterImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Revenant.jpg`,
-  previewImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/revenant.jpg`,
-  backgroundImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Revenant.jpg`,
-  backgroundColor: `#92918B`,
-  description: `A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his own hunting team.`,
-  rating: 4,
-  scoresCount: 618498,
-  director: `Alejandro G. Iñárritu`,
-  starring: [
-    `Leonardo DiCaprio`,
-    `Tom Hardy`,
-    `Will Poulter`
-  ],
-  runTime: 156,
-  genre: `Action`,
-  released: 2015,
-  id: 8,
-  isFavorite: false,
-  videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
-  previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-};
-
-export const bronson = {
-  name: `Bronson`,
-  posterImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/bronson.jpg`,
-  previewImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/bronson.jpg`,
-  backgroundImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/background/bronson.jpg`,
-  backgroundColor: `#73B39A`,
-  description: `A young man who was sentenced to seven years in prison for robbing a post office ends up spending three decades in solitary confinement. During this time, his own personality is supplanted by his alter-ego, Charles Bronson.`,
-  rating: 3.6,
-  scoresCount: 109661,
-  director: `Nicolas Winding Refn`,
-  starring: [
-    `Tom Hardy`,
-    `Kelly Adams`,
-    `Luing Andrews`
-  ],
-  runTime: 92,
-  genre: `Action`,
-  released: 2008,
-  id: 9,
-  isFavorite: false,
-  videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
-  previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
-};
-
 export const films = [
+  {
+    name: `Bronson`,
+    posterImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/bronson.jpg`,
+    previewImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/bronson.jpg`,
+    backgroundImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/background/bronson.jpg`,
+    backgroundColor: `#73B39A`,
+    description: `A young man who was sentenced to seven years in prison for robbing a post office ends up spending three decades in solitary confinement. During this time, his own personality is supplanted by his alter-ego, Charles Bronson.`,
+    rating: 3.6,
+    scoresCount: 109661,
+    director: `Nicolas Winding Refn`,
+    starring: [
+      `Tom Hardy`,
+      `Kelly Adams`,
+      `Luing Andrews`
+    ],
+    runTime: 92,
+    genre: `Action`,
+    released: 2008,
+    id: 9,
+    isFavorite: false,
+    videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
+    previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+  },
+  {
+    name: `The Revenant`,
+    posterImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Revenant.jpg`,
+    previewImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/preview/revenant.jpg`,
+    backgroundImage: `https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Revenant.jpg`,
+    backgroundColor: `#92918B`,
+    description: `A frontiersman on a fur trading expedition in the 1820s fights for survival after being mauled by a bear and left for dead by members of his own hunting team.`,
+    rating: 4,
+    scoresCount: 618498,
+    director: `Alejandro G. Iñárritu`,
+    starring: [
+      `Leonardo DiCaprio`,
+      `Tom Hardy`,
+      `Will Poulter`
+    ],
+    runTime: 156,
+    genre: `Action`,
+    released: 2015,
+    id: 8,
+    isFavorite: false,
+    videoLink: `http://peach.themazzone.com/durian/movies/sintel-1024-surround.mp4`,
+    previewVideoLink: `https://upload.wikimedia.org/wikipedia/commons/transcoded/b/b3/Big_Buck_Bunny_Trailer_400p.ogv/Big_Buck_Bunny_Trailer_400p.ogv.360p.webm`
+  },
   macbeth,
-  revenant,
-  bronson,
 ];
 
-export const reviewedfilmId = 2;
-export const reviewsData = [
+const reviewsData = [
   {
     id: 1,
     user: {
@@ -110,7 +105,7 @@ export const reviewsData = [
 ];
 
 export const reviews = {
-  id: reviewedfilmId,
+  id: 1,
   data: reviewsData,
 };
 
@@ -124,11 +119,12 @@ describe(`"domain" action creators return correct action objects:`, () => {
   });
 
   test(`setFilmAction`, () => {
+    const film = macbeth;
     const setFilmActionWithMacbeth = {
       type: ActionType.SET_FILM,
-      payload: macbeth,
+      payload: film,
     };
-    expect(setFilmActionCreator(macbeth)).toEqual(setFilmActionWithMacbeth);
+    expect(setFilmActionCreator(film)).toEqual(setFilmActionWithMacbeth);
   });
 
   test(`setFilmsAction`, () => {
@@ -140,11 +136,12 @@ describe(`"domain" action creators return correct action objects:`, () => {
   });
 
   test(`setPromoAction`, () => {
+    const film = macbeth;
     const setPromoActionWithBronson = {
       type: ActionType.SET_PROMO,
-      payload: bronson,
+      payload: film,
     };
-    expect(setPromoActionCreator(bronson)).toEqual(setPromoActionWithBronson);
+    expect(setPromoActionCreator(film)).toEqual(setPromoActionWithBronson);
   });
 
   test(`setReviewsAction`, () => {

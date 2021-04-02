@@ -75,7 +75,7 @@ export const postReviewThunk = (id, reqBody) => (dispatch, _getState, api) => {
 };
 
 export const postFavouriteFilmStatusThunk = (id, status) => (dispatch, getState, api) => {
-  return api.post(APIRoutes.getFavouriteFilmStatusRoute(id, status))
+  return api.post(APIRoutes.getFilmStatusRoute(id, status))
     .then(({data}) => {
       const state = getState();
       const newFilms = updateFilmsArrayWithNewFilm(filmsSelector(state), data, id);

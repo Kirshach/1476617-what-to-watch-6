@@ -8,15 +8,10 @@ import {DOMAIN} from '../rootReducer';
 import {AppRoutes} from '../../const';
 
 import {
-  bronson,
+  macbeth,
   films,
   reviews,
 } from './actions.test';
-
-const reviewReqBody = {
-  rating: 1,
-  comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`
-};
 
 import {
   fetchFavouriteFilmsThunk,
@@ -30,28 +25,33 @@ import {
 import {APIRoutes} from '../../const';
 import {DomainNS} from './reducer';
 
-const bronsonWithIsFavouriteTrue = {...bronson, isFavorite: true};
-const filmsWithBronsonIsFavoutite = [...(films.slice(0, 2)), bronsonWithIsFavouriteTrue];
+const filmReceived = macbeth;
+const filmToBeUpdated = films[films.length - 1];
+const filmWithUpdatedStatus = {...filmToBeUpdated, isFavorite: true};
+const filmsWithUpdatedFilmStatus = [...(films.slice(0, 2)), filmWithUpdatedStatus];
 
 const filmId = 1;
-const FilmRoute = APIRoutes.getFilmRoute(filmId);
+const reviewFilmId = 1;
+
+const filmRoute = APIRoutes.getFilmRoute(filmId);
+const reviewRoute = APIRoutes.getCommentsRoute(reviewFilmId);
 
 const mockAPI = new MockAdapter(api);
 mockAPI
   .onGet(APIRoutes.FAVOURITE)
   .reply(200, films)
-  .onGet(FilmRoute)
-  .reply(200, bronson)
+  .onGet(filmRoute)
+  .reply(200, filmReceived)
   .onGet(APIRoutes.FILMS)
   .reply(200, films)
   .onGet(APIRoutes.PROMO_FILM)
-  .reply(200, bronson)
-  .onGet(APIRoutes.getCommentsRoute(filmId))
+  .reply(200, filmReceived)
+  .onGet(reviewRoute)
   .reply(200, reviews)
-  .onPost(APIRoutes.getFavouriteFilmStatusRoute(bronson.id, false))
-  .reply(200, bronsonWithIsFavouriteTrue)
-  .onPost(APIRoutes.getCommentsRoute(filmId))
-  .reply(200);
+  .onPost(reviewRoute)
+  .reply(200)
+  .onPost(APIRoutes.getFilmStatusRoute(filmToBeUpdated.id, false))
+  .reply(200, filmWithUpdatedStatus);
 
 const setFavouriteFilmsHaveLoadedFalse = {
   type: StateActionType.SET_FAVOURITE_FILMS_HAVE_LOADED,
@@ -108,9 +108,9 @@ const setFavouriteFilmsAction = {
   payload: films,
 };
 
-const setBronsonFilmAction = {
+const setFilmAction = {
   type: ActionType.SET_FILM,
-  payload: bronson,
+  payload: filmReceived,
 };
 
 const setFilmsAction = {
@@ -118,27 +118,27 @@ const setFilmsAction = {
   payload: films,
 };
 
-const setFilmsWithIsFavoriteBronsonAction = {
+const setFilmsWithIUpdatedFilmAction = {
   type: ActionType.SET_FILMS,
-  payload: filmsWithBronsonIsFavoutite,
+  payload: filmsWithUpdatedFilmStatus,
 };
 
 const setPromoAction = {
   type: ActionType.SET_PROMO,
-  payload: bronson,
+  payload: filmReceived,
 };
 
 const setReviewsAction = {
   type: ActionType.SET_REVIEWS,
   payload: {
-    id: filmId,
+    id: reviewFilmId,
     data: reviews,
   },
 };
 
 const redirectToReviewsAction = {
   type: REDIRECT,
-  payload: AppRoutes.getFilmReviewsRoute(filmId),
+  payload: AppRoutes.getFilmReviewsRoute(reviewFilmId),
 };
 
 describe(`"domain" thunks work correctly`, () => {
@@ -184,7 +184,7 @@ describe(`"domain" thunks work correctly`, () => {
 
     expect(dispatch).toHaveBeenCalledTimes(3);
     expect(dispatch).toHaveBeenNthCalledWith(1, setFilmHasLoadedFalse);
-    expect(dispatch).toHaveBeenNthCalledWith(2, setBronsonFilmAction);
+    expect(dispatch).toHaveBeenNthCalledWith(2, setFilmAction);
     expect(dispatch).toHaveBeenNthCalledWith(3, setFilmHasLoadedTrue);
   });
 
@@ -279,7 +279,7 @@ describe(`"domain" thunks work correctly`, () => {
 
   test(`fetchReviewsThunk invokes dispatch correctly on a valid API request`, async () => {
     const dispatch = jest.fn();
-    const fetchReviews = fetchReviewsThunk(filmId);
+    const fetchReviews = fetchReviewsThunk(reviewFilmId);
     await fetchReviews(dispatch, () => { }, api);
 
     expect(dispatch).toHaveBeenCalledTimes(3);
@@ -290,7 +290,7 @@ describe(`"domain" thunks work correctly`, () => {
 
   test(`fetchReviewsThunk dispatches an API error action on an invalid API request`, async () => {
     const dispatch = jest.fn();
-    const fetchReviews = fetchReviewsThunk(filmId + 1);
+    const fetchReviews = fetchReviewsThunk(reviewFilmId + 1);
 
     try {
       await fetchReviews(dispatch, () => { }, api);
@@ -308,7 +308,7 @@ describe(`"domain" thunks work correctly`, () => {
 
   test(`postFavouriteFilmStatusThunk invokes dispatch correctly on a valid API request`, async () => {
     const dispatch = jest.fn();
-    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(bronson.id, false);
+    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(filmToBeUpdated.id, false);
     const getState = () => ({
       [DOMAIN]: {
         [DomainNS.FILMS]: films
@@ -317,7 +317,7 @@ describe(`"domain" thunks work correctly`, () => {
     await postFavouriteFilmStatus(dispatch, getState, api);
 
     expect(dispatch).toHaveBeenCalledTimes(2);
-    expect(dispatch).toHaveBeenNthCalledWith(1, setFilmsWithIsFavoriteBronsonAction);
+    expect(dispatch).toHaveBeenNthCalledWith(1, setFilmsWithIUpdatedFilmAction);
     expect(dispatch).toHaveBeenNthCalledWith(2, expect.any(Function));
   });
 
@@ -325,11 +325,11 @@ describe(`"domain" thunks work correctly`, () => {
     const localFavouriteFilmStatusApi = createAPI();
     const failingLocalApiMock = new MockAdapter(localFavouriteFilmStatusApi);
     failingLocalApiMock
-      .onPost(APIRoutes.getFavouriteFilmStatusRoute(bronson.id, false))
+      .onPost(APIRoutes.getFilmStatusRoute(filmToBeUpdated.id, false))
       .reply(401);
 
     const dispatch = jest.fn();
-    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(bronson.id + 1);
+    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(filmToBeUpdated.id + 1);
 
     try {
       await postFavouriteFilmStatus(dispatch, () => { }, api);
@@ -344,8 +344,12 @@ describe(`"domain" thunks work correctly`, () => {
   });
 
   test(`postReviewThunk invokes dispatch correctly on a valid API request`, async () => {
+    const reviewReqBody = {
+      rating: 1,
+      comment: `Discerning travellers and Wes Anderson fans will luxuriate in the glorious Mittel-European kitsch of one of the director's funniest and most exquisitely designed movies in years.`
+    };
     const dispatch = jest.fn();
-    const postReview = postReviewThunk(filmId, reviewReqBody);
+    const postReview = postReviewThunk(reviewFilmId, reviewReqBody);
     await postReview(dispatch, () => { }, api);
 
     expect(dispatch).toHaveBeenCalledTimes(2);
@@ -357,17 +361,17 @@ describe(`"domain" thunks work correctly`, () => {
     const local400ErrorPostReviewApi = createAPI();
     const failingWith400LocalApiMock = new MockAdapter(local400ErrorPostReviewApi);
     failingWith400LocalApiMock
-      .onPost(APIRoutes.getFavouriteFilmStatusRoute(filmId, false))
+      .onPost(APIRoutes.getFilmStatusRoute(reviewFilmId, false))
       .reply(400);
 
     const local401ErrorPostReviewApi = createAPI();
     const failingWith401LocalApiMock = new MockAdapter(local401ErrorPostReviewApi);
     failingWith401LocalApiMock
-      .onPost(APIRoutes.getFavouriteFilmStatusRoute(filmId, false))
+      .onPost(APIRoutes.getFilmStatusRoute(reviewFilmId, false))
       .reply(401);
 
     const dispatch = jest.fn();
-    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(bronson.id + 1);
+    const postFavouriteFilmStatus = postFavouriteFilmStatusThunk(filmToBeUpdated.id + 1 + Math.random());
 
     try {
       await postFavouriteFilmStatus(dispatch, () => { }, api);
