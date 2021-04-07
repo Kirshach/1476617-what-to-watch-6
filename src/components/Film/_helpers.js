@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Description from './description';
+import Description from './description1';
 import ReviewsList from './reviews-list';
-import Details from './details';
+import Details from './details1';
 
 import {AppRoutes} from '../../const';
 import {Subroutes} from './_const';
