@@ -1,1 +1,1 @@
-export {adaptFromApi} from './adaptFromApi';
+export {adaptFromApi} from './adapt-from-api';

@@ -1,0 +1,94 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Details /> renders correctly 1`] = `
+<div>
+  <div
+    class="movie-card__text movie-card__row"
+  >
+    <div
+      class="movie-card__text-col"
+    >
+      <p
+        class="movie-card__details-item"
+      >
+        <strong
+          class="movie-card__details-name"
+        >
+          Director
+        </strong>
+        <span
+          class="movie-card__details-value"
+        >
+          Justin Kurzel
+        </span>
+      </p>
+      <p
+        class="movie-card__details-item"
+      >
+        <strong
+          class="movie-card__details-name"
+        >
+          Starring
+        </strong>
+        <span
+          class="movie-card__details-value"
+        >
+          Michael Fassbender
+          , 
+          <br />
+          Marion Cotillard
+          , 
+          <br />
+          Jack Madigan
+        </span>
+      </p>
+    </div>
+    <div
+      class="movie-card__text-col"
+    >
+      <p
+        class="movie-card__details-item"
+      >
+        <strong
+          class="movie-card__details-name"
+        >
+          Run Time
+        </strong>
+        <span
+          class="movie-card__details-value"
+        >
+          1h 53m
+        </span>
+      </p>
+      <p
+        class="movie-card__details-item"
+      >
+        <strong
+          class="movie-card__details-name"
+        >
+          Genre
+        </strong>
+        <span
+          class="movie-card__details-value"
+        >
+          Drama
+        </span>
+      </p>
+      <p
+        class="movie-card__details-item"
+      >
+        <strong
+          class="movie-card__details-name"
+        >
+          Released
+        </strong>
+        <span
+          class="movie-card__details-value"
+        >
+          2015
+        </span>
+      </p>
+    </div>
+  </div>
+</div>
+`;

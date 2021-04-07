@@ -1,25 +1,26 @@
-import React, {useMemo, useState} from "react";
+import React, {useMemo, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 
-import {filmsHaveLoadedSelector} from "../../store/app/state/selectors";
-import {postFavouriteFilmStatusThunk} from "../../store/domain/thunks";
+import {filmsHaveLoadedSelector} from '../../store/app/state/selectors';
+import {postFavouriteFilmStatusThunk} from '../../store/domain/thunks';
 import {filmsByGenreSelector} from '../../store/domain/derived';
-import {setPromoAction} from "../../store/domain/actions";
+import {setPromoAction} from '../../store/domain/actions';
 import {useNavigation, usePromo} from '../../hooks';
-import {getPlayerRoute} from "../Film/_helpers";
-
-import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
-import MovieCardList from '../MovieCardList/MovieCardList';
-import PageFooter from "../PageFooter/PageFooter";
-import PageHeader from "../PageHeader/PageHeader";
-import GenreMenu from '../GenreMenu/GenreMenu';
+import {getPlayerRoute} from '../film/_helpers';
 
 import {FILMS_BATCH} from './_const';
 
+import LoadingPlaceholder from '../loading-placeholder/loading-placeholder';
+import MovieCardList from '../movie-card-list/movie-card-list';
+import PageFooter from '../page-footer/page-footer';
+import PageHeader from '../page-header/page-header';
+import GenreMenu from '../genre-menu/genre-menu';
+
 const Main = () => {
   const dispatch = useDispatch();
-  const [filmsShowingCount, setFilmsShowingCount] = useState(FILMS_BATCH);
   const {redirect} = useNavigation();
+
+  const [filmsShowingCount, setFilmsShowingCount] = useState(FILMS_BATCH);
 
   const filmsHaveLoaded = useSelector(filmsHaveLoadedSelector);
   const filmsByGenre = useSelector(filmsByGenreSelector);

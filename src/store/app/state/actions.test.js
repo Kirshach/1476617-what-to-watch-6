@@ -9,7 +9,7 @@ import {
   setGenreAction as setGenreActionCreator,
 } from './actions';
 
-import {AllGenres} from '../../../const';
+import {ALL_GENRES} from '../../../const';
 
 describe(`"state" action creators return correct action objects:`, () => {
 
@@ -102,14 +102,14 @@ describe(`"state" action creators return correct action objects:`, () => {
 
     const setGenreActionAllGenre = {
       type: ActionType.SET_GENRE,
-      payload: AllGenres,
+      payload: ALL_GENRES,
     };
     const setGenreActionMindBlowingComedy = {
       type: ActionType.SET_GENRE,
       payload: mindBlowingAdventure,
     };
 
-    expect(setGenreActionCreator(AllGenres)).toEqual(setGenreActionAllGenre);
+    expect(setGenreActionCreator(ALL_GENRES)).toEqual(setGenreActionAllGenre);
     expect(setGenreActionCreator(mindBlowingAdventure)).toEqual(setGenreActionMindBlowingComedy);
   });
 });

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MovieCard /> renders correctly 1`] = `
+<div>
+  <article
+    class="small-movie-card catalog__movies-card"
+    style="cursor: pointer;"
+  >
+    <div
+      class="small-movie-card__image"
+    >
+      <div>
+        This is a VideoPlayer placeholder
+      </div>
+    </div>
+    <h3
+      class="small-movie-card__title"
+      style="pointer-events: none;"
+    >
+      <span
+        class="small-movie-card__link"
+      >
+        Macbeth
+      </span>
+    </h3>
+  </article>
+</div>
+`;

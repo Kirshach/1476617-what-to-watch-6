@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyList /> renders correctly 1`] = `
+<div>
+  <div
+    class="user-page"
+  >
+    <header
+      class="page-header user-page__head"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <h1
+        class="page-title user-page__title"
+      >
+        My list
+      </h1>
+      <div
+        class="user-block"
+      >
+        <a
+          class="user-block__link"
+          href="/mylist"
+        >
+          <div
+            class="user-block__avatar"
+          >
+            <img
+              alt="User avatar"
+              height="63"
+              src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+              width="63"
+            />
+          </div>
+        </a>
+      </div>
+    </header>
+    <section
+      class="catalog"
+    >
+      <h2
+        class="catalog__title visually-hidden"
+      >
+        Catalog
+      </h2>
+      <div
+        class="catalog__movies-list"
+      >
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Macbeth
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Beach
+            </span>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;

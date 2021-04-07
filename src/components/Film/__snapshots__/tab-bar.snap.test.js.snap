@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TabBar /> renders correctly 1`] = `
+<div>
+  <nav
+    class="movie-nav movie-card__nav"
+  >
+    <ul
+      class="movie-nav__list"
+    >
+      <li
+        class="movie-nav__item movie-nav__item--active"
+      >
+        <a
+          class="movie-nav__link"
+          href="/films/1/"
+        >
+          Overview
+        </a>
+      </li>
+      <li
+        class="movie-nav__item "
+      >
+        <a
+          class="movie-nav__link"
+          href="/films/1/details"
+        >
+          Details
+        </a>
+      </li>
+      <li
+        class="movie-nav__item "
+      >
+        <a
+          class="movie-nav__link"
+          href="/films/1/reviews"
+        >
+          Reviews
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;

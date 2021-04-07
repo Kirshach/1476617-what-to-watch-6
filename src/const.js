@@ -6,18 +6,25 @@ export const APIRoutes = {
   FILMS: `/films`,
   LOGIN: `/login`,
 
-  getFilmRoute: (id, tab) => tab ? [APIRoutes.FILMS, id, tab].join(`/`) : [APIRoutes.FILMS, id].join(`/`),
-  getCommentsRoute: (id) => [APIRoutes.COMMENTS, id].join(`/`),
-  getFilmStatusRoute: (id, isFavourite) => {
+  getFilmRoute(id) {
+    return [this.FILMS, id].join(`/`);
+  },
+
+  getCommentsRoute(id) {
+    return [this.COMMENTS, id].join(`/`);
+  },
+
+  getFilmStatusRoute(id, isFavourite) {
     const status = isFavourite ? `0` : `1`;
-    return [APIRoutes.FAVOURITE, id, status].join(`/`);
+    return [this.FAVOURITE, id, status].join(`/`);
   }
 };
 
 export const FilmSubroutes = {
   overview: ``,
   details: `details`,
-  reviews: `reviews`
+  reviews: `reviews`,
+  addReview: `review`,
 };
 
 export const AppRoutes = {
@@ -32,9 +39,29 @@ export const AppRoutes = {
   LOGIN: `/login`,
   MAIN: `/`,
 
+  getFilmRoute(id, subroute) {
+    return (subroute ? [this.FILM_BASE_ROUTE, id, subroute] : [this.FILM_BASE_ROUTE, id]).join(`/`);
+  },
+
+  getAddReviewRoute(id) {
+    return this.getFilmRoute(id, FilmSubroutes.addReview);
+  },
+
   getFilmReviewsRoute(id) {
-    return [this.FILM_BASE_ROUTE, id, FilmSubroutes.reviews].join(`/`);
-  }
+    return this.getFilmRoute(id, FilmSubroutes.reviews);
+  },
+
+  getFilmDetailsRoute(id) {
+    return this.getFilmRoute(id, FilmSubroutes.details);
+  },
+
+  getFilmOverviewRoute(id) {
+    return this.getFilmRoute(id, FilmSubroutes.overview);
+  },
+
+  gerMoviePlayerRoute(id) {
+    return [this.MOVIE_PLAYER_BASE_ROUTE, id].join(`/`);
+  },
 };
 
-export const AllGenres = `All genres`;
+export const ALL_GENRES = `All genres`;

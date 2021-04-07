@@ -1,7 +1,7 @@
 import {
   DomainNS,
   domainReducer,
-  initialState,
+  INITIAL_STATE,
 } from './reducer';
 
 import {ActionType} from './actions';
@@ -147,73 +147,73 @@ const reviews = {
 
 describe(`"domain" reducer`, () => {
   test(`returns initial state after being called with no first argument`, () => {
-    expect(domainReducer(undefined, {})).toEqual(initialState);
+    expect(domainReducer(undefined, {})).toEqual(INITIAL_STATE);
   });
-  test(`returns initialState after an unexpected action`, () => {
+  test(`returns INITIAL_STATE after an unexpected action`, () => {
     const unexpectedAction = {
       type: `someRandomActionTypeWhichClearlyDoesNotExist`,
       payload: `Whatever payload, shouldn't make sense anyways`,
     };
-    expect(domainReducer(initialState, unexpectedAction)).toEqual(initialState);
+    expect(domainReducer(INITIAL_STATE, unexpectedAction)).toEqual(INITIAL_STATE);
   });
 
   test(`handles ${ActionType.SET_FAVOURITE_FILMS} action correctly`, () => {
     const initialStateWithFavouriteFilms = {
-      ...initialState,
+      ...INITIAL_STATE,
       [DomainNS.FAVOURITE_FILMS]: favouriteFilms,
     };
     const setFavouriteFilmsAction = {
       type: ActionType.SET_FAVOURITE_FILMS,
       payload: favouriteFilms,
     };
-    expect(domainReducer(initialState, setFavouriteFilmsAction)).toEqual(initialStateWithFavouriteFilms);
+    expect(domainReducer(INITIAL_STATE, setFavouriteFilmsAction)).toEqual(initialStateWithFavouriteFilms);
   });
 
   test(`handles ${ActionType.SET_FILM} action correctly`, () => {
     const initialStateWithMacbethFilm = {
-      ...initialState,
+      ...INITIAL_STATE,
       [DomainNS.FILM]: macbeth,
     };
     const setMacbethFilmAction = {
       type: ActionType.SET_FILM,
       payload: macbeth,
     };
-    expect(domainReducer(initialState, setMacbethFilmAction)).toEqual(initialStateWithMacbethFilm);
+    expect(domainReducer(INITIAL_STATE, setMacbethFilmAction)).toEqual(initialStateWithMacbethFilm);
   });
 
   test(`handles ${ActionType.SET_FILMS} action correctly`, () => {
     const initialStateWithFilms = {
-      ...initialState,
+      ...INITIAL_STATE,
       [DomainNS.FILMS]: films,
     };
     const setFilmsAction = {
       type: ActionType.SET_FILMS,
       payload: films,
     };
-    expect(domainReducer(initialState, setFilmsAction)).toEqual(initialStateWithFilms);
+    expect(domainReducer(INITIAL_STATE, setFilmsAction)).toEqual(initialStateWithFilms);
   });
 
   test(`handles ${ActionType.SET_PROMO} action correctly`, () => {
     const initialStateWithMatrixPromo = {
-      ...initialState,
+      ...INITIAL_STATE,
       [DomainNS.PROMO]: matrix,
     };
     const setMatrixPromoAction = {
       type: ActionType.SET_PROMO,
       payload: matrix,
     };
-    expect(domainReducer(initialState, setMatrixPromoAction)).toEqual(initialStateWithMatrixPromo);
+    expect(domainReducer(INITIAL_STATE, setMatrixPromoAction)).toEqual(initialStateWithMatrixPromo);
   });
 
   test(`handles ${ActionType.SET_REVIEWS} action correctly`, () => {
     const initialStateWithReviews = {
-      ...initialState,
+      ...INITIAL_STATE,
       [DomainNS.REVIEWS]: reviews,
     };
     const setReviewsAction = {
       type: ActionType.SET_REVIEWS,
       payload: reviews,
     };
-    expect(domainReducer(initialState, setReviewsAction)).toEqual(initialStateWithReviews);
+    expect(domainReducer(INITIAL_STATE, setReviewsAction)).toEqual(initialStateWithReviews);
   });
 });

@@ -1,6 +1,6 @@
 import {
   authReducer,
-  initialState,
+  INITIAL_STATE,
   AuthNS,
 } from './reducer';
 
@@ -19,20 +19,20 @@ const mockAuthState = {
 
 describe(`"auth" reducer`, () => {
   test(`returns initial state after being called with no first argument`, () => {
-    expect(authReducer(undefined, {})).toEqual(initialState);
+    expect(authReducer(undefined, {})).toEqual(INITIAL_STATE);
   });
-  test(`returns initialState after an unexpected action`, () => {
+  test(`returns INITIAL_STATE after an unexpected action`, () => {
     const unexpectedAction = {
       type: `someRandomActionTypeWhichClearlyDoesNotExist`,
       payload: `Whatever payload, shouldn't make sense anyways`,
     };
-    expect(authReducer(initialState, unexpectedAction)).toEqual(initialState);
+    expect(authReducer(INITIAL_STATE, unexpectedAction)).toEqual(INITIAL_STATE);
   });
 
   test(`handles ${ActionType.RESET_USER_DATA} action correctly`, () => {
     const mockAuthStateWithInitialUserData = {
       ...mockAuthState,
-      [AuthNS.USER_DATA]: initialState[AuthNS.USER_DATA],
+      [AuthNS.USER_DATA]: INITIAL_STATE[AuthNS.USER_DATA],
     };
     const resetUseDataAction = {
       type: ActionType.RESET_USER_DATA,

@@ -9,7 +9,7 @@ const FILM = `film`;
 const FILM_ID = `id`;
 const DATA = `data`;
 
-export const initialState = {
+export const INITIAL_STATE = {
   [FAVOURITE_FILMS]: null,
   [FILMS]: [],
   [FILM]: {},
@@ -20,7 +20,7 @@ export const initialState = {
   },
 };
 
-export const domainReducer = (state = initialState, action) => {
+export const domainReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionType.SET_FILM:
       return ({

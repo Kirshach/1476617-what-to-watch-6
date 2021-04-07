@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 import {redirectMiddleware, handleAPIErrorMiddleware} from './middlewares';
 import {checkAuthThunk} from '../store/app/auth/thunks';
 import {fetchFilmsThunk} from '../store/domain/thunks';
-import {rootReducer as reducer} from '../store/rootReducer';
+import {rootReducer as reducer} from '../store/root-reducer';
 
 import {api} from '../api/api';
 

@@ -1,23 +1,22 @@
-import React from "react";
-import {useSelector} from "react-redux";
-import {Router, Switch, Route} from "react-router-dom";
+import React from 'react';
+import {useSelector} from 'react-redux';
+import {Router, Switch, Route} from 'react-router-dom';
 
-import {isOnlineSelector} from "../../store/app/state/selectors.js";
+import {isOnlineSelector} from '../../store/app/state/selectors.js';
 import {AppRoutes} from '../../const.js';
 
-import OfflineScreen from "../OfflineScreen/OfflineScreen.jsx";
-import PageNotFound from '../PageNotFound/PageNotFound';
-import PrivateRoute from '../PrivateRoute/PrivateRoute';
-import MoviePlayer from '../MoviePlayer/MoviePlayer';
-import AddReview from '../AddReview/AddReview';
-import Logout from "../Logout/Logout";
-import MyList from "../MyList/MyList";
-import SignIn from '../SignIn/SignIn';
-import Film from "../Film/Film";
-import Main from "../Main/Main";
+import OfflineScreen from '../offline-screen/offline-screen.jsx';
+import PageNotFound from '../page-not-found/page-not-found';
+import PrivateRoute from '../private-route/private-route';
+import MoviePlayer from '../movie-player/movie-player';
+import AddReview from '../add-review/add-review';
+import Logout from '../logout/logout';
+import MyList from '../my-list/my-list';
+import SignIn from '../sign-in/sign-in';
+import Film from '../film/film';
+import Main from '../main/main';
 
 import {history} from '../../history';
-
 
 export const App = () => {
   const isOnline = useSelector(isOnlineSelector);

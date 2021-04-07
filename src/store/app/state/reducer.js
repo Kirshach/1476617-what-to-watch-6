@@ -1,4 +1,4 @@
-import {AllGenres} from '../../../const';
+import {ALL_GENRES} from '../../../const';
 import {ActionType} from './actions';
 
 const FAVOURITE_FILMS_HAVE_LOADED = `favouriteFilmsHaveLoaded`;
@@ -9,7 +9,7 @@ const FILM_HAS_LOADED = `filmHasLoaded`;
 const IS_ONLINE = `isOnline`;
 const GENRE = `genre`;
 
-export const initialState = {
+export const INITIAL_STATE = {
   [FAVOURITE_FILMS_HAVE_LOADED]: false,
   [REVIEWS_HAVE_LOADED]: false,
   [FILMS_HAVE_LOADED]: false,
@@ -17,10 +17,10 @@ export const initialState = {
   [FILM_HAS_LOADED]: false,
   [IS_ONLINE]: true,
 
-  [GENRE]: AllGenres,
+  [GENRE]: ALL_GENRES,
 };
 
-export const stateReducer = (state = initialState, action) => {
+export const stateReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionType.SET_FILM_HAS_LOADED:
       return {

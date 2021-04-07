@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<UserBlock /> renders correctly for an authorized user 1`] = `
+<div>
+  <div
+    class="user-block"
+  >
+    <a
+      class="user-block__link"
+      href="/mylist"
+    >
+      <div
+        class="user-block__avatar"
+      >
+        <img
+          alt="User avatar"
+          height="63"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+          width="63"
+        />
+      </div>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`<UserBlock /> renders correctly for an unauthorized user 1`] = `
+<div>
+  <div
+    class="user-block"
+  >
+    <a
+      class="user-block__link"
+      href="/login"
+    >
+      Sign in
+    </a>
+  </div>
+</div>
+`;

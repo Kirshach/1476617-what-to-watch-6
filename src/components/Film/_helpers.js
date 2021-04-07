@@ -1,8 +1,8 @@
 import React from 'react';
 
-import Description from './Description';
-import ReviewsList from './ReviewsList';
-import Details from './Details';
+import Description from './description';
+import ReviewsList from './reviews-list';
+import Details from './details';
 
 import {AppRoutes} from '../../const';
 import {Subroutes} from './_const';
@@ -18,18 +18,31 @@ export const getFilmPageBody = (film, tab) => {
     default: throw new Error(`Invalid route provided to getFilmPageBody function`);
   }
 };
+
 export const getSimilarFilms = (films, film) => {
   return films && films.filter(
       (anotherFilm) => anotherFilm.genre === film.genre && anotherFilm.id !== film.id
   ).slice(0, 4) || [];
 };
+
 export const formatDuration = (time) => {
   const hours = Math.floor(time / 60);
   const minutes = time % 60;
   return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 };
+
+export const formatDate = (date) => date.toLocaleDateString(`en-US`, {
+  month: `long`,
+  day: `numeric`,
+  year: `numeric`,
+});
+
+export const formatCommentRating = (rating) => rating.toString().replace(`.`, `,`);
+
 export const getPlayerRoute = (id) => `${AppRoutes.MOVIE_PLAYER_BASE_ROUTE}/${id}`;
+
 export const getTabClassName = (isCurrentRoute) => `movie-nav__item ${isCurrentRoute ? `movie-nav__item--active` : ``}`;
+
 export const getVerboseRating = (score) => {
   let verboseRating;
   if (score < 0 || score > 10) {
@@ -47,4 +60,5 @@ export const getVerboseRating = (score) => {
   }
   return verboseRating;
 };
-export const formatRating = (rating) => rating.toFixed(1);
+
+export const formatMovieRating = (rating) => rating.toFixed(1);

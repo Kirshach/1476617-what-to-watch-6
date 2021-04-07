@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import {formatDate, formatCommentRating} from './_helpers';
+
 const Review = ({
   comment,
   rating,
   date,
   username
 }) => {
-  date = new Date(date);
-  const formattedDate = date.toLocaleDateString(`en-US`, {
-    month: `long`,
-    day: `numeric`,
-    year: `numeric`,
-  });
-  const formattedRating = rating.toString().replace(`.`, `,`);
+  const parsedDate = new Date(date);
+  const formattedDate = formatDate(parsedDate);
+  const formattedRating = formatCommentRating(rating);
   return (
     <div className="review">
       <blockquote className="review__quote">
@@ -21,7 +19,7 @@ const Review = ({
 
         <footer className="review__details">
           <cite className="review__author">{username}</cite>
-          <time className="review__date" dateTime={date.toISOString()}>{formattedDate}</time>
+          <time className="review__date" dateTime={parsedDate.toISOString()}>{formattedDate}</time>
         </footer>
       </blockquote>
 

@@ -1,4 +1,4 @@
-import {RootNS} from '../../rootReducer';
+import {RootNS} from '../../root-reducer';
 import {AppNS} from '../reducer';
 import {AuthNS} from './reducer';
 

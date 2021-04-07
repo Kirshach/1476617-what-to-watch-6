@@ -4,7 +4,7 @@ const HAS_CHECKED_AUTH = `hasCheckedAuth`;
 const IS_AUTHORIZED = `isAuthorized`;
 const USER_DATA = `userData`;
 
-export const initialState = {
+export const INITIAL_STATE = {
   [HAS_CHECKED_AUTH]: false,
   [IS_AUTHORIZED]: false,
   [USER_DATA]: {
@@ -15,7 +15,7 @@ export const initialState = {
   },
 };
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ActionType.SET_IS_AUTHORIZED:
       return {
@@ -30,7 +30,7 @@ export const authReducer = (state = initialState, action) => {
     case ActionType.RESET_USER_DATA:
       return {
         ...state,
-        [USER_DATA]: initialState[USER_DATA],
+        [USER_DATA]: INITIAL_STATE[USER_DATA],
       };
     case ActionType.SET_HAS_CHECKED_AUTH:
       return {

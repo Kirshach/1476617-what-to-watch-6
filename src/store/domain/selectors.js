@@ -1,4 +1,4 @@
-import {RootNS} from '../rootReducer';
+import {RootNS} from '../root-reducer';
 import {DomainNS} from './reducer';
 
 const {DOMAIN} = RootNS;

@@ -4,14 +4,12 @@ import {ActionType as StateActionType} from '../app/state/actions';
 import {HANDLE_API_ERROR, REDIRECT} from '../middlewares';
 import {api, createAPI} from '../../api/api';
 import {ActionType} from './actions';
-import {DOMAIN} from '../rootReducer';
+import {DOMAIN} from '../root-reducer';
 import {AppRoutes} from '../../const';
 
-import {
-  macbeth,
-  films,
-  reviews,
-} from './actions.test';
+import {macbeth} from '../../mocks/film';
+import {films} from '../../mocks/films';
+import {reviews} from '../../mocks/reviews';
 
 import {
   fetchFavouriteFilmsThunk,

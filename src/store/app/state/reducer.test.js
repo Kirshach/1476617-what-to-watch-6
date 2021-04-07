@@ -1,11 +1,11 @@
 import {
   StateNS,
-  initialState,
+  INITIAL_STATE,
   stateReducer,
 } from './reducer';
 
+import {ALL_GENRES} from '../../../const';
 import {ActionType} from './actions';
-import {AllGenres} from '../../../const';
 
 const mockAppState = {
   [StateNS.FAVOURITE_FILMS_HAVE_LOADED]: false,
@@ -14,19 +14,19 @@ const mockAppState = {
   [StateNS.PROMO_HAS_LOADED]: true,
   [StateNS.FILM_HAS_LOADED]: false,
   [StateNS.IS_ONLINE]: true,
-  [StateNS.GENRE]: AllGenres,
+  [StateNS.GENRE]: ALL_GENRES,
 };
 
 describe(`"state" reducer`, () => {
   test(`returns initial state after being called with no first argument`, () => {
-    expect(stateReducer(undefined, {})).toEqual(initialState);
+    expect(stateReducer(undefined, {})).toEqual(INITIAL_STATE);
   });
-  test(`returns initialState after an unexpected action`, () => {
+  test(`returns INITIAL_STATE after an unexpected action`, () => {
     const unexpectedAction = {
       type: `someRandomActionTypeWhichClearlyDoesNotExist`,
       payload: `Whatever payload, shouldn't make sense anyways`,
     };
-    expect(stateReducer(initialState, unexpectedAction)).toEqual(initialState);
+    expect(stateReducer(INITIAL_STATE, unexpectedAction)).toEqual(INITIAL_STATE);
   });
 
   test(`handles ${ActionType.SET_FAVOURITE_FILMS_HAVE_LOADED} action correctly`, () => {
@@ -95,7 +95,7 @@ describe(`"state" reducer`, () => {
     };
     const setAllGenresAction = {
       type: ActionType.SET_GENRE,
-      payload: AllGenres,
+      payload: ALL_GENRES,
     };
     const updatedState = stateReducer(mockAppState, setNewGenreAction);
     expect(updatedState).toEqual(mockAppStateWithUpdatedGenre);

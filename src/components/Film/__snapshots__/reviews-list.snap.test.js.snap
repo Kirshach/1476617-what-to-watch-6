@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewsList /> renders correctly for a loaded review list 1`] = `
+<div>
+  <div
+    class="loading-placeholder"
+  >
+    Loading
+    .
+  </div>
+</div>
+`;
+
+exports[`<ReviewsList /> renders correctly for an unloaded review list 1`] = `
+<div>
+  <div
+    class="loading-placeholder"
+  >
+    Loading
+    .
+  </div>
+</div>
+`;

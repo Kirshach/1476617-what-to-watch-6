@@ -1,28 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Link, useParams} from 'react-router-dom';
 
-import MovieCardList from '../MovieCardList/MovieCardList';
-import TabBar from './TabBar';
-
 import {filmsHaveLoadedSelector} from '../../store/app/state/selectors';
+import {postFavouriteFilmStatusThunk} from '../../store/domain/thunks';
 import {isAuthorizedSelector} from '../../store/app/auth/selectors';
-import {postFavouriteFilmStatusThunk} from "../../store/domain/thunks";
 import {filmsSelector} from '../../store/domain/selectors';
-import {setFilmAction} from "../../store/domain/actions";
-
+import {setFilmAction} from '../../store/domain/actions';
+import {fetchFilmThunk} from '../../store/domain/thunks';
+import {useFilm} from '../../hooks/use-film';
 import {useNavigation} from '../../hooks';
 
-import LoadingPlaceholder from '../LoadingPlaceholder/LoadingPlaceholder';
-import PageFooter from '../PageFooter/PageFooter';
-import PageHeader from '../PageHeader/PageHeader';
+import LoadingPlaceholder from '../loading-placeholder/loading-placeholder';
+import MovieCardList from '../movie-card-list/movie-card-list';
+import PageFooter from '../page-footer/page-footer';
+import PageHeader from '../page-header/page-header';
+import TabBar from './tab-bar';
 
 import {getFilmPageBody, getSimilarFilms, getPlayerRoute} from './_helpers';
-import {useFilm} from '../../hooks/useFilm';
-import {fetchFilmThunk} from '../../store/domain/thunks';
 
 const Film = () => {
-  const [isInitialLoad, setIsInitialLoad] = useState(true);
   const dispatch = useDispatch();
   const {redirect} = useNavigation();
   const {id, tab = ``} = useParams();
@@ -33,14 +30,10 @@ const Film = () => {
   const [film] = useFilm(id);
 
   useEffect(() => {
-    if (!isInitialLoad || film.id !== id) {
+    if (film.id !== id) {
       dispatch(fetchFilmThunk(id));
     }
   }, [id]);
-
-  useEffect(() => {
-    setIsInitialLoad(false);
-  }, []);
 
   const similarFilms = getSimilarFilms(films, film);
 
@@ -58,7 +51,7 @@ const Film = () => {
   }
 
   return (
-    <>
+    <React.Fragment key={id}>
       <section className="movie-card movie-card--full">
         <div className="movie-card__hero">
           <div className="movie-card__bg">
@@ -137,7 +130,7 @@ const Film = () => {
 
         <PageFooter />
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

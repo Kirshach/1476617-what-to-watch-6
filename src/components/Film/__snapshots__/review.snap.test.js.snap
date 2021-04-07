@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Review /> renders correctly 1`] = `
+<div>
+  <div
+    class="review"
+  >
+    <blockquote
+      class="review__quote"
+    >
+      <p
+        class="review__text"
+      >
+        This movie is just plain bad. There must be some big payola going round this awards season. Badly written, average acting at best, all the characters are unrelatable and inlikeable. 2 hours of my life wasted.
+      </p>
+      <footer
+        class="review__details"
+      >
+        <cite
+          class="review__author"
+        >
+          Zak
+        </cite>
+        <time
+          class="review__date"
+          datetime="2021-03-07T08:04:28.658Z"
+        >
+          March 7, 2021
+        </time>
+      </footer>
+    </blockquote>
+    <div
+      class="review__rating"
+    >
+      1,4
+    </div>
+  </div>
+</div>
+`;

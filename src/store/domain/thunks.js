@@ -15,8 +15,8 @@ import {
 } from '../app/state/actions';
 
 import {redirectAction, handleAPIErrorAction} from '../middlewares';
-import {Subroutes} from '../../components/Film/_const';
-import {APIRoutes} from '../../const';
+import {Subroutes} from '../../components/film/_const';
+import {APIRoutes, AppRoutes} from '../../const';
 import {filmsSelector} from './selectors';
 
 const updateFilmsArrayWithNewFilm = (films, film, id) => {
@@ -69,7 +69,7 @@ export const postReviewThunk = (id, reqBody) => (dispatch, _getState, api) => {
   return api.post(APIRoutes.getCommentsRoute(id), reqBody)
     .then(() => {
       dispatch(fetchReviewsThunk(id));
-      dispatch(redirectAction(APIRoutes.getFilmRoute(id, Subroutes.reviews)));
+      dispatch(redirectAction(AppRoutes.getFilmRoute(id, Subroutes.reviews)));
     })
     .catch((error) => dispatch(handleAPIErrorAction(error)));
 };

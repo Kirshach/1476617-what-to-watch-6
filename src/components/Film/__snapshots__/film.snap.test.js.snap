@@ -1,0 +1,1177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Film /> renders details tab correctly 1`] = `
+<div>
+  <section
+    class="movie-card movie-card--full"
+  >
+    <div
+      class="movie-card__hero"
+    >
+      <div
+        class="movie-card__bg"
+      >
+        <img
+          alt="Macbeth"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Macbeth.jpg"
+        />
+      </div>
+      <h1
+        class="visually-hidden"
+      >
+        WTW
+      </h1>
+      <header
+        class="page-header movie-card__head"
+      >
+        <div
+          class="logo"
+        >
+          <a
+            class="logo__link"
+            href="/"
+          >
+            <span
+              class="logo__letter logo__letter--1"
+            >
+              W
+            </span>
+            <span
+              class="logo__letter logo__letter--2"
+            >
+              T
+            </span>
+            <span
+              class="logo__letter logo__letter--3"
+            >
+              W
+            </span>
+          </a>
+        </div>
+        <div
+          class="user-block"
+        >
+          <a
+            class="user-block__link"
+            href="/mylist"
+          >
+            <div
+              class="user-block__avatar"
+            >
+              <img
+                alt="User avatar"
+                height="63"
+                src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+                width="63"
+              />
+            </div>
+          </a>
+        </div>
+      </header>
+      <div
+        class="movie-card__wrap"
+      >
+        <div
+          class="movie-card__desc"
+        >
+          <h2
+            class="movie-card__title"
+          >
+            Macbeth
+          </h2>
+          <p
+            class="movie-card__meta"
+          >
+            <span
+              class="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              class="movie-card__year"
+            >
+              2015
+            </span>
+          </p>
+          <div
+            class="movie-card__buttons"
+          >
+            <button
+              class="btn btn--play movie-card__button"
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlink:href="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              class="btn btn--list movie-card__button"
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlink:href="#in-list"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+            <a
+              class="btn movie-card__button"
+              href="/films/1/review"
+            >
+              Add review
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        class="movie-card__info"
+      >
+        <div
+          class="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="Macbeth poster"
+            height="327"
+            src="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__desc"
+        >
+          <nav
+            class="movie-nav movie-card__nav"
+          >
+            <ul
+              class="movie-nav__list"
+            >
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/"
+                >
+                  Overview
+                </a>
+              </li>
+              <li
+                class="movie-nav__item movie-nav__item--active"
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/details"
+                >
+                  Details
+                </a>
+              </li>
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/reviews"
+                >
+                  Reviews
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="movie-card__text movie-card__row"
+          >
+            <div
+              class="movie-card__text-col"
+            >
+              <p
+                class="movie-card__details-item"
+              >
+                <strong
+                  class="movie-card__details-name"
+                >
+                  Director
+                </strong>
+                <span
+                  class="movie-card__details-value"
+                >
+                  Justin Kurzel
+                </span>
+              </p>
+              <p
+                class="movie-card__details-item"
+              >
+                <strong
+                  class="movie-card__details-name"
+                >
+                  Starring
+                </strong>
+                <span
+                  class="movie-card__details-value"
+                >
+                  Michael Fassbender
+                  , 
+                  <br />
+                  Marion Cotillard
+                  , 
+                  <br />
+                  Jack Madigan
+                </span>
+              </p>
+            </div>
+            <div
+              class="movie-card__text-col"
+            >
+              <p
+                class="movie-card__details-item"
+              >
+                <strong
+                  class="movie-card__details-name"
+                >
+                  Run Time
+                </strong>
+                <span
+                  class="movie-card__details-value"
+                >
+                  1h 53m
+                </span>
+              </p>
+              <p
+                class="movie-card__details-item"
+              >
+                <strong
+                  class="movie-card__details-name"
+                >
+                  Genre
+                </strong>
+                <span
+                  class="movie-card__details-value"
+                >
+                  Drama
+                </span>
+              </p>
+              <p
+                class="movie-card__details-item"
+              >
+                <strong
+                  class="movie-card__details-name"
+                >
+                  Released
+                </strong>
+                <span
+                  class="movie-card__details-value"
+                >
+                  2015
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    class="page-content"
+  >
+    <section
+      class="catalog catalog--like-this"
+    >
+      <h2
+        class="catalog__title"
+      >
+        More like this
+      </h2>
+      <div
+        class="catalog__movies-list"
+      >
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Bronson
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              The Revenant
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Macbeth
+            </span>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;
+
+exports[`<Film /> renders main overview tab correctly 1`] = `
+<div>
+  <section
+    class="movie-card movie-card--full"
+  >
+    <div
+      class="movie-card__hero"
+    >
+      <div
+        class="movie-card__bg"
+      >
+        <img
+          alt="Macbeth"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Macbeth.jpg"
+        />
+      </div>
+      <h1
+        class="visually-hidden"
+      >
+        WTW
+      </h1>
+      <header
+        class="page-header movie-card__head"
+      >
+        <div
+          class="logo"
+        >
+          <a
+            class="logo__link"
+            href="/"
+          >
+            <span
+              class="logo__letter logo__letter--1"
+            >
+              W
+            </span>
+            <span
+              class="logo__letter logo__letter--2"
+            >
+              T
+            </span>
+            <span
+              class="logo__letter logo__letter--3"
+            >
+              W
+            </span>
+          </a>
+        </div>
+        <div
+          class="user-block"
+        >
+          <a
+            class="user-block__link"
+            href="/mylist"
+          >
+            <div
+              class="user-block__avatar"
+            >
+              <img
+                alt="User avatar"
+                height="63"
+                src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+                width="63"
+              />
+            </div>
+          </a>
+        </div>
+      </header>
+      <div
+        class="movie-card__wrap"
+      >
+        <div
+          class="movie-card__desc"
+        >
+          <h2
+            class="movie-card__title"
+          >
+            Macbeth
+          </h2>
+          <p
+            class="movie-card__meta"
+          >
+            <span
+              class="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              class="movie-card__year"
+            >
+              2015
+            </span>
+          </p>
+          <div
+            class="movie-card__buttons"
+          >
+            <button
+              class="btn btn--play movie-card__button"
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlink:href="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              class="btn btn--list movie-card__button"
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlink:href="#in-list"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+            <a
+              class="btn movie-card__button"
+              href="/films/1/review"
+            >
+              Add review
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        class="movie-card__info"
+      >
+        <div
+          class="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="Macbeth poster"
+            height="327"
+            src="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__desc"
+        >
+          <nav
+            class="movie-nav movie-card__nav"
+          >
+            <ul
+              class="movie-nav__list"
+            >
+              <li
+                class="movie-nav__item movie-nav__item--active"
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/"
+                >
+                  Overview
+                </a>
+              </li>
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/details"
+                >
+                  Details
+                </a>
+              </li>
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/reviews"
+                >
+                  Reviews
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="movie-rating"
+          >
+            <div
+              class="movie-rating__score"
+            >
+              3.3
+            </div>
+            <p
+              class="movie-rating__meta"
+            >
+              <span
+                class="movie-rating__level"
+              >
+                Normal
+              </span>
+              <span
+                class="movie-rating__count"
+              >
+                48798
+                 ratings
+              </span>
+            </p>
+          </div>
+          <div
+            class="movie-card__text"
+          >
+            <p>
+              Macbeth, the Thane of Glamis, receives a prophecy from a trio of witches that one day he will become King of Scotland. Consumed by ambition and spurred to action by his wife, Macbeth murders his king and takes the throne for himself.
+            </p>
+            <p
+              class="movie-card__director"
+            >
+              <strong>
+                Director: 
+                Justin Kurzel
+              </strong>
+            </p>
+            <p
+              class="movie-card__starring"
+            >
+              <strong>
+                Starring: 
+                Michael Fassbender, Marion Cotillard, Jack Madigan
+                 and others
+              </strong>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    class="page-content"
+  >
+    <section
+      class="catalog catalog--like-this"
+    >
+      <h2
+        class="catalog__title"
+      >
+        More like this
+      </h2>
+      <div
+        class="catalog__movies-list"
+      >
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Bronson
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              The Revenant
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Macbeth
+            </span>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;
+
+exports[`<Film /> renders reviews tab correctly 1`] = `
+<div>
+  <section
+    class="movie-card movie-card--full"
+  >
+    <div
+      class="movie-card__hero"
+    >
+      <div
+        class="movie-card__bg"
+      >
+        <img
+          alt="Macbeth"
+          src="https://assets.htmlacademy.ru/intensives/javascript-3/film/background/Macbeth.jpg"
+        />
+      </div>
+      <h1
+        class="visually-hidden"
+      >
+        WTW
+      </h1>
+      <header
+        class="page-header movie-card__head"
+      >
+        <div
+          class="logo"
+        >
+          <a
+            class="logo__link"
+            href="/"
+          >
+            <span
+              class="logo__letter logo__letter--1"
+            >
+              W
+            </span>
+            <span
+              class="logo__letter logo__letter--2"
+            >
+              T
+            </span>
+            <span
+              class="logo__letter logo__letter--3"
+            >
+              W
+            </span>
+          </a>
+        </div>
+        <div
+          class="user-block"
+        >
+          <a
+            class="user-block__link"
+            href="/mylist"
+          >
+            <div
+              class="user-block__avatar"
+            >
+              <img
+                alt="User avatar"
+                height="63"
+                src="https://assets.htmlacademy.ru/intensives/javascript-3/avatar/6.jpg"
+                width="63"
+              />
+            </div>
+          </a>
+        </div>
+      </header>
+      <div
+        class="movie-card__wrap"
+      >
+        <div
+          class="movie-card__desc"
+        >
+          <h2
+            class="movie-card__title"
+          >
+            Macbeth
+          </h2>
+          <p
+            class="movie-card__meta"
+          >
+            <span
+              class="movie-card__genre"
+            >
+              Drama
+            </span>
+            <span
+              class="movie-card__year"
+            >
+              2015
+            </span>
+          </p>
+          <div
+            class="movie-card__buttons"
+          >
+            <button
+              class="btn btn--play movie-card__button"
+              type="button"
+            >
+              <svg
+                height="19"
+                viewBox="0 0 19 19"
+                width="19"
+              >
+                <use
+                  xlink:href="#play-s"
+                />
+              </svg>
+              <span>
+                Play
+              </span>
+            </button>
+            <button
+              class="btn btn--list movie-card__button"
+              type="button"
+            >
+              <svg
+                height="20"
+                viewBox="0 0 19 20"
+                width="19"
+              >
+                <use
+                  xlink:href="#in-list"
+                />
+              </svg>
+              <span>
+                My list
+              </span>
+            </button>
+            <a
+              class="btn movie-card__button"
+              href="/films/1/review"
+            >
+              Add review
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="movie-card__wrap movie-card__translate-top"
+    >
+      <div
+        class="movie-card__info"
+      >
+        <div
+          class="movie-card__poster movie-card__poster--big"
+        >
+          <img
+            alt="Macbeth poster"
+            height="327"
+            src="https://assets.htmlacademy.ru/intensives/javascript-3/film/poster/Macbeth.jpg"
+            width="218"
+          />
+        </div>
+        <div
+          class="movie-card__desc"
+        >
+          <nav
+            class="movie-nav movie-card__nav"
+          >
+            <ul
+              class="movie-nav__list"
+            >
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/"
+                >
+                  Overview
+                </a>
+              </li>
+              <li
+                class="movie-nav__item "
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/details"
+                >
+                  Details
+                </a>
+              </li>
+              <li
+                class="movie-nav__item movie-nav__item--active"
+              >
+                <a
+                  class="movie-nav__link"
+                  href="/films/1/reviews"
+                >
+                  Reviews
+                </a>
+              </li>
+            </ul>
+          </nav>
+          <div
+            class="movie-card__reviews movie-card__row"
+          >
+            <div
+              class="movie-card__reviews-col"
+            >
+              <div
+                class="review"
+              >
+                <blockquote
+                  class="review__quote"
+                >
+                  <p
+                    class="review__text"
+                  >
+                    Poised to be an instant classic, almost everything about this film is phenomenal - the acting, the cinematography, the discography, etc.
+                  </p>
+                  <footer
+                    class="review__details"
+                  >
+                    <cite
+                      class="review__author"
+                    >
+                      Corey
+                    </cite>
+                    <time
+                      class="review__date"
+                      datetime="2021-02-15T08:04:28.658Z"
+                    >
+                      February 15, 2021
+                    </time>
+                  </footer>
+                </blockquote>
+                <div
+                  class="review__rating"
+                >
+                  7,8
+                </div>
+              </div>
+              <div
+                class="review"
+              >
+                <blockquote
+                  class="review__quote"
+                >
+                  <p
+                    class="review__text"
+                  >
+                    A movie that will take you to another world full of emotions.
+                  </p>
+                  <footer
+                    class="review__details"
+                  >
+                    <cite
+                      class="review__author"
+                    >
+                      Jack
+                    </cite>
+                    <time
+                      class="review__date"
+                      datetime="2021-02-11T08:04:28.658Z"
+                    >
+                      February 11, 2021
+                    </time>
+                  </footer>
+                </blockquote>
+                <div
+                  class="review__rating"
+                >
+                  5,9
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    class="page-content"
+  >
+    <section
+      class="catalog catalog--like-this"
+    >
+      <h2
+        class="catalog__title"
+      >
+        More like this
+      </h2>
+      <div
+        class="catalog__movies-list"
+      >
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Bronson
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              The Revenant
+            </span>
+          </h3>
+        </article>
+        <article
+          class="small-movie-card catalog__movies-card"
+          style="cursor: pointer;"
+        >
+          <div
+            class="small-movie-card__image"
+          >
+            <div>
+              This is a VideoPlayer placeholder
+            </div>
+          </div>
+          <h3
+            class="small-movie-card__title"
+            style="pointer-events: none;"
+          >
+            <span
+              class="small-movie-card__link"
+            >
+              Macbeth
+            </span>
+          </h3>
+        </article>
+      </div>
+    </section>
+    <footer
+      class="page-footer"
+    >
+      <div
+        class="logo"
+      >
+        <a
+          class="logo__link"
+          href="/"
+        >
+          <span
+            class="logo__letter logo__letter--1"
+          >
+            W
+          </span>
+          <span
+            class="logo__letter logo__letter--2"
+          >
+            T
+          </span>
+          <span
+            class="logo__letter logo__letter--3"
+          >
+            W
+          </span>
+        </a>
+      </div>
+      <div
+        class="copyright"
+      >
+        <p>
+          © 2019 What to watch Ltd.
+        </p>
+      </div>
+    </footer>
+  </div>
+</div>
+`;
