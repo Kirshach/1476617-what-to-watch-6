@@ -10,9 +10,9 @@ import PageNotFound from '../page-not-found/page-not-found';
 import PrivateRoute from '../private-route/private-route';
 import MoviePlayer from '../movie-player/movie-player';
 import AddReview from '../add-review/add-review';
-import Logout from '../logout/logout';
 import MyList from '../my-list/my-list';
 import SignIn from '../sign-in/sign-in';
+import Logout from '../logout/logout';
 import Film from '../film/film';
 import Main from '../main/main';
 
