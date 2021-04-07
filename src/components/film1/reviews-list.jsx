@@ -7,7 +7,7 @@ import {reviewsSelector} from '../../store/domain/selectors';
 import {fetchReviewsThunk} from '../../store/domain/thunks';
 
 import LoadingPlaceholder from '../loading-placeholder/loading-placeholder';
-import Review from './review1';
+import Review from './review';
 
 const ReviewsList = ({id}) => {
   const dispatch = useDispatch();
